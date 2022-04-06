@@ -4,7 +4,7 @@
 Quick setup instructions assume you are using Docker Compose. For most users, using Docker Compose is the best choice.
 
 ### Before starting
-You should have installed Docker Engine and Docker Compose. This is very fast and easy to do on common Debian distros such as Debian, Ubuntu, Red Hat, and CentOS. See the following guides for each OS:
+You should have Docker Engine and Docker Compose installed. This is very fast and easy to do on common Linux distros such as Debian, Ubuntu, Red Hat, and CentOS. By installing Docker Engine from `apt` or `yum`, you get Docker Compose along with it. See the following install guides for each OS:
 
 * [Debian](https://docs.docker.com/engine/install/debian/)
 * [Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
