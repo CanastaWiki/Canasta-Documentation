@@ -82,9 +82,9 @@ wfLoadExtension( 'MyCustomExtension' );
 ```
 
 ### Composer packages
-If a 3rd party extension requires some Composer packages to be installed, just create
-a `config/composer.local.json` file (if one is not there already) and add to it
-`merge-plugin` syntax that includes the extension's `composer.json` file, e.g.:
+If a 3rd party extension requires some Composer packages to be installed, just
+add a line for the extension's `composer.json` file to the
+`config/composer.local.json` file, e.g.:
 
 ```json
 {
