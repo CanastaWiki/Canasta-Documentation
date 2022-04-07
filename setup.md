@@ -12,25 +12,26 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 * More available at [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
 
 ### Import existing wiki
-* Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose`
+* Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
 * Drop your database dump (in either a `.sql` or `.sql.gz` file) into the `_initdb/` directory
-* Place your existing `LocalSettings.php` in the `config/` directory and change your database configuration to be the following
+* Place your existing `LocalSettings.php` in the `config/` directory and change your database configuration to be the following:
   * Database host: `db`
   * Database user: `root`
-  * Database password: `mediawiki` (by default; see `Configuration` section)
+  * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section))
 * Navigate to the repo directory and run `docker-compose up -d`
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
 
 ### Create new wiki
-* Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose`
+* Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
 * Navigate to the repo directory and run `docker-compose up -d`
-* Navigate to `http://localhost` and run wiki setup wizard:
+* Navigate to its URL (or `http://localhost` if installed locally) and run the MediaWiki setup wizard with the following info:
   * Database host: `db`
   * Database user: `root`
-  * Database password: `mediawiki` (by default; see `Configuration` section)
+  * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section))
 * Place your new `LocalSettings.php` in the `config/` directory
+  * Be sure to add `cfLoadSkin( 'Vector' );` to enable the Vector skin, `cfLoadExtension( 'VisualEditor' );` for VisualEditor, etc. (More information about installing extensions can be found at the extensions setup page.)
 * Run `docker-compose down`, then `docker-compose up -d` (this is important because it initializes your `LocalSettings.php` for Canasta)
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
 
