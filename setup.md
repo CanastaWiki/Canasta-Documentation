@@ -21,6 +21,7 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
   * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section)
 * Navigate to the repo directory and run `docker-compose up -d`
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
+* For more info on finishing up your installation, go to the [After installation](#After installation) section.
 
 ### Create new wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
@@ -34,6 +35,14 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
   * Be sure to add `cfLoadSkin( 'Vector' );` to enable the Vector skin, `cfLoadExtension( 'VisualEditor' );` for VisualEditor, etc. (More information about installing extensions can be found at the extensions setup page.)
 * Run `docker-compose down`, then `docker-compose up -d` (this is important because it initializes your `LocalSettings.php` for Canasta)
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
+* For more info on finishing up your installation, go to the [After installation](#After installation) section.
+
+### After installation
+There's several things you can do to polish up your wiki so it's ready for use:
+
+* To add popular extensions quickly, visit the [extensions setup](extensions-setup) page to explore your choices.
+* Add a skin to your wiki by choosing a skin and add a `cfLoadSkin` call to `LocalSettings.php`. For instance, to install Vector, add: `cfLoadSkin( 'Vector' );` to `LocalSettings.php`.
+* All `.php` files in the `config/settings/` directory will be loaded as if their contents were in `LocalSettings.php`. In addition, if you want to remove the Canasta footer icon, you can remove the `config/settings/CanastaFooterIcon.php` file.
 
 ## Configuration
 Canasta relies on setting environment variables in the Docker container for controlling
