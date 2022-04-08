@@ -21,7 +21,7 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
   * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section)
 * Navigate to the repo directory and run `docker-compose up -d`
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
-* For more info on finishing up your installation, go to the [After installation](#After installation) section.
+* For more info on finishing up your installation, go to the "After installation" section.
 
 ### Create new wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
@@ -35,7 +35,7 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
   * Be sure to add `cfLoadSkin( 'Vector' );` to enable the Vector skin, `cfLoadExtension( 'VisualEditor' );` for VisualEditor, etc. (More information about installing extensions can be found at the extensions setup page.)
 * Run `docker-compose down`, then `docker-compose up -d` (this is important because it initializes your `LocalSettings.php` for Canasta)
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
-* For more info on finishing up your installation, go to the [After installation](#After installation) section.
+* For more info on finishing up your installation, go to the "After installation" section.
 
 ### After installation
 There's several things you can do to polish up your wiki so it's ready for use:
