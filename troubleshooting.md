@@ -3,7 +3,7 @@
 ### On Ubuntu, `docker-compose` doesn't work because it says Docker isn't running?
 If you are using Ubuntu, you need to add `sudo` before all `docker` and `docker-compose` commands.
 
-### After starting up my Canasta repo for the first time, I am getting a "guru meditation error".
+### After starting up my Canasta repo for the first time, I am getting a "Error 503 Backend fetch failed / Guru Meditation" error.
 
 This is an error that Varnish returns. In this case, it is most likely because it cannot access the Canasta container (containing Apache, PHP, MediaWiki, etc.) Wait a few minutes for it to go away. If after 10 minutes it does not go away, try to restart your Canasta stack (`docker-compose down && docker-compose up -d`).
 
