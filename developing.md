@@ -4,7 +4,7 @@
 
 1. Clone the Canasta image's repo into your Canasta stack repo by doing, in the base directory of your stack repo, this command: `git clone https://github.com/CanastaWiki/Canasta`
 2. Edit the `docker-compose.override.yml` file. Under the `web` container's configuration, add:
-```
+```yml
 image: canasta:dev
 build:
   context: ./Canasta/
@@ -13,7 +13,7 @@ This will use the `Dockerfile` located in the newly-added `Canasta/` directory.
 
 If you made no other changes to your `docker-compose.override.yml` file, it should appear to be:
 
-```
+```yml
 version: '3.7'
 services:
   web:
