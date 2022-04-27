@@ -90,7 +90,7 @@ docker-compose exec web php maintenance/rebuildall.php
 
 The image is also configured to automatically run the `update.php` script on
 start, so if you enable some extension that adds its own database tables (like `Semantic Mediawiki`),
-you can add the DB tables by either restarting the stack via `docker-compose restart, or just running the
+you can add the DB tables by either restarting the stack via `docker-compose restart`, or just running the
 `update.php` script like so:
 
 ```bash
