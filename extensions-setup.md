@@ -14,7 +14,6 @@ There are a few major "revolutionary" extensions that add significant functional
 
 ```php
 $wgDefaultSkin = 'vector';
-cfLoadSkin( 'Vector' );
 
 cfLoadExtension( 'VisualEditor' );
 
