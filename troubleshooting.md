@@ -1,6 +1,6 @@
 # Troubleshooting
 
-### On Ubuntu, `docker-compose` doesn't work because it says Docker isn't running?
+### On Ubuntu, `docker-compose` doesn't work because it says Docker isn't running.
 If you are using Ubuntu, you need to add `sudo` before all `docker` and `docker-compose` commands.
 
 ### After starting up my Canasta repo for the first time, I am getting a "Error 503 Backend fetch failed / Guru Meditation" error.
