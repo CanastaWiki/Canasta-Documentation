@@ -50,8 +50,8 @@ Use "sudo canasta [command] --help" for more information about a command.
 ```
 sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
 ```
-*Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
-*For more info on finishing up your installation, visit https://canasta.wiki/setup/#after-installation.
+* Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
+* For more info on finishing up your installation, visit https://canasta.wiki/setup/#after-installation.
 
 ## Import an existing wiki
 * Place all the files mentioned below in the same directory for ease of use.

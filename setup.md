@@ -11,6 +11,83 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 * [CentOS](https://docs.docker.com/engine/install/centos/)
 * More available at [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
 
+## Recommended: CLI Installation
+
+### Installation
+* Then, run the following line to install the Canasta CLI:
+
+```
+curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
+``` 
+
+### All available commands
+
+```
+A CLI tool to create, import, start, stop and backup multiple Canasta installations
+
+Usage:
+  sudo canasta [command]
+
+Available Commands:
+  list        List all Canasta installations
+  create      Create a Canasta installation
+  import      Import a wiki installation
+  start       Start the Canasta installation
+  stop        Shuts down the Canasta installation
+  restart     Restart the Canasta installation
+  skin        Manage Canasta skins
+  extension   Manage Canasta extensions
+  restic      Use restic to backup and restore Canasta
+  maintenance Run maintenance update jobs
+  delete      Delete a Canasta installation
+  help        Help about any command
+
+Flags:
+  -h, --help      help for canasta
+  -v, --verbose   Verbose output
+
+
+Use "sudo canasta [command] --help" for more information about a command.
+```
+### Create a new wiki
+* Run the following command to create a new Canasta installation with default configurations.
+```
+sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
+```
+* Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
+* For more info on finishing up your installation, visit https://canasta.wiki/setup/#after-installation.
+
+### Import an existing wiki
+* Place all the files mentioned below in the same directory for ease of use.
+* Create a .env file and customize as needed (more details on how to configure it at https://canasta.wiki/setup/#configuration, and for an example see https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example).
+* Drop your database dump (in either a .sql or .sql.gz file).
+* Place your existing LocalSettings.php and change your database configuration to be the following:
+  * Database host: db
+  * Database user: root
+  * Database password: mediawiki (by default; see https://canasta.wiki/setup/#configuration)
+* Then run the following command:
+```
+sudo canasta import -i importWikiId -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php  
+```
+* Visit your wiki at its URL (or http://localhost if installed locally or if you did not specify any domain).
+* For more info on finishing up your installation, visit https://canasta.wiki/setup/#after-installation.
+
+### Enable/disable an extension
+* To enable a Canasta extension, run the following command:
+```
+sudo canasta extension enable Bootstrap -i canastaId
+```
+
+### Enable/disable a skin
+* To enable a Canasta skin, run the following command:
+```
+sudo canasta skin enable Vector -i canastaId
+```
+
+* Note: For more info on using the cli visit https://canasta.wiki/cli
+
+## Manual Installation
+
 ### Import existing wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
