@@ -20,35 +20,6 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
 ``` 
 
-### All available commands
-
-```
-A CLI tool to create, import, start, stop and backup multiple Canasta installations
-
-Usage:
-  sudo canasta [command]
-
-Available Commands:
-  list        List all Canasta installations
-  create      Create a Canasta installation
-  import      Import a wiki installation
-  start       Start the Canasta installation
-  stop        Shuts down the Canasta installation
-  restart     Restart the Canasta installation
-  skin        Manage Canasta skins
-  extension   Manage Canasta extensions
-  restic      Use restic to backup and restore Canasta
-  maintenance Run maintenance update jobs
-  delete      Delete a Canasta installation
-  help        Help about any command
-
-Flags:
-  -h, --help      help for canasta
-  -v, --verbose   Verbose output
-
-
-Use "sudo canasta [command] --help" for more information about a command.
-```
 ### Create a new wiki
 * Run the following command to create a new Canasta installation with default configurations.
 ```
