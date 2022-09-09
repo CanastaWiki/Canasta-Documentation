@@ -51,27 +51,25 @@ Use "sudo canasta [command] --help" for more information about a command.
 sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
 ```
 * Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
-* For more info on finishing up your installation, visit https://canasta.wiki/setup/#after-installation.
+* For more info on finishing up your installation, visit [after installation](setup.md#after-installation).
 
 ## Import an existing wiki
 * Place all the files mentioned below in the same directory for ease of use.
-* Create a .env file and customize as needed (more details on how to configure it at https://canasta.wiki/setup/#configuration, and for an example see https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example).
+* Create a .env file and customize as needed (more details on how to configure it at [configuration](setup.md#configuration), and for an example see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example)).
 * Drop your database dump (in either a .sql or .sql.gz file).
 * Place your existing LocalSettings.php and change your database configuration to be the following:
-```
-Database host: db
-Database user: root
-Database password: mediawiki (by default; see https://canasta.wiki/setup/#configuration)
-```
+  * Database host: db
+  * Database user: root
+  * Database password: mediawiki (by default; see [Configuration](setup.md#configuration))
 * Then run the following command:
 ```
 sudo canasta import -i importWikiId -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php  
 ```
 * Visit your wiki at its URL (or http://localhost if installed locally or if you did not specify any domain).
-* For more info on finishing up your installation, visit https://canasta.wiki/setup/#after-installation.
+* For more info on finishing up your installation, visit [after installation](setup.md#after-installation).
 
 ## Enable/disable an extension
-* To list all Canasta extensions (https://canasta.wiki/documentation/#extensions-included-in-canasta) that can be enabled or disabled with the CLI, run the following command:
+* To list all [Canasta extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) that can be enabled or disabled with the CLI, run the following command:
 ```
 sudo canasta extension list -i canastaId
 ```
@@ -91,7 +89,7 @@ sudo canasta extension enable VisualEditor,PluggableAuth -i canastaId
 
 
 ## Enable/disable a skin
-* To list all Canasta skins (https://canasta.wiki/documentation/#skins-included-in-canasta) that can be enabled or disabled with the CLI, run the following command:
+* To list all [Canasta skins](https://canasta.wiki/documentation/#skins-included-in-canasta) that can be enabled or disabled with the CLI, run the following command:
 ```
 sudo canasta skin list -i canastaId
 ```
@@ -110,12 +108,12 @@ sudo canasta skin enable CologneBlue,Modern -i canastaId
 * Note: the skin names are case-sensitive.
 
 ## Restic Documentation
-* More about restic at https://restic.net
+* More about restic at [restic.net](https://restic.net)
 * The current version is configured for using AWS S3 based repositories
 * It uses restic's [dockerized binary](https://hub.docker.com/r/restic/restic)
 
 ### How to get started
-1. Add these environment variables to your Canasta's `.env`.Follow the steps at https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-creds-create to obtain ACCESS_KEY_ID and SECRET_ACESS_KEY
+1. Add these environment variables to your Canasta's `.env`.Follow the steps at [cli-configure-quickstart](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-creds-create) to obtain ACCESS_KEY_ID and SECRET_ACESS_KEY
 ```
 AWS_S3_API=s3.amazonaws.com
 AWS_ACCESS_KEY_ID=
