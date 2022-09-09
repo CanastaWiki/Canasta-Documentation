@@ -88,7 +88,7 @@ sudo canasta skin enable Vector -i canastaId
 ### After installation
 There's several things you can do to polish up your wiki so it's ready for use:
 
-* To add popular extensions quickly, visit the [canasta extensions](#enabling-extensions) page to explore your choices.
+* To add popular extensions quickly, visit the [Canasta extensions](#enabling-extensions) page to explore your choices.
 * Add a skin to your wiki by choosing a skin and add a `cfLoadSkin` call to `LocalSettings.php`. For instance, to install Vector, add: `cfLoadSkin( 'Vector' );` to `LocalSettings.php`.
 * All `.php` files in the `config/settings/` directory will be loaded as if their contents were in `LocalSettings.php`. In addition, if you want to remove the Canasta footer icon, you can remove the `config/settings/CanastaFooterIcon.php` file.
 
