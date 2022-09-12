@@ -39,7 +39,7 @@ Available Commands:
   help        Help about any command
 
 Flags:
-  -h, --help      help for canasta
+  -h, --help      help for Canasta
   -v, --verbose   Verbose output
 
 
@@ -140,6 +140,30 @@ Now you should be able to use any of the available commands.
   view          View restic snapshots
   ```
 Use "sudo canasta restic [command] --help" for more information about a command.
+
+## /etc/canasta/conf.json
+* Canasta CLI maintains a list of installations that it manages. This information is stored at /etc/canasta/conf.json. Therefore the CLI would require permissions to read and write to the `/etc/canasta/` folder.
+* The scheme of the `conf.json` file is as follows
+```
+{
+	"Installations": {
+		"wiki1": {
+			"Id": "wiki1",
+			"Path": "/home/user/wiki1",
+			"Orchestrator": "docker-compose"
+		},
+		"wiki2": {
+			"Id": "wiki2",
+			"Path": "/home/user/canasta/wiki2",
+			"Orchestrator": "docker-compose"
+		}
+	}
+}
+```
+* Inside the object `Installations` there is the list of installations that the CLI currently manages.
+* "Id": It is the Canasta ID of the installation, specified during the installation.
+* "Path": This is the directory where the configuration files for the Canasta installation is stored.
+* "Orchestrator": This is the orchestrator which runs the Canasta instance. (Currently docker-compose is the only orchestrator supported by the CLI)
 
 ## Uninstall
 * To uninstall the CLI, delete the binary file from the installation folder (default: /usr/local/bin/canasta)
