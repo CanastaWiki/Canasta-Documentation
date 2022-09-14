@@ -12,14 +12,14 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 * More available at [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
 
 ## Recommended: CLI Installation
-### What is Canasta CLI?
+### What is Canasta CLI
 [Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (Command Line Interface) is a tool to manage Canasta installations. It can create, import, start, stop, manage extension/skins with commands. Specific details about the Canasta installation could be altered by passing in values via keyword arguments.
 
-### Why is it recommended?
+### Why is it recommended
 Canasta CLI, simplifies the process of creating and managing a Canasta installation. Even without the knowledge of Docker and Docker-Compose, one can get started with a Canasta instance using the CLI. Simple command to [create a new wiki](#create-a-new-wiki) helps to get started in minutes.
 
 ### Installation
-* Then, run the following line to install the Canasta :
+* Run the following line to install the Canasta CLI:
 
 ```
 curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
