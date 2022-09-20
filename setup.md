@@ -11,6 +11,59 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 * [CentOS](https://docs.docker.com/engine/install/centos/)
 * More available at [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
 
+## Recommended: CLI Installation
+### What is Canasta CLI
+[Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (Command Line Interface) is a tool to manage Canasta installations. It can create, import, start, stop, manage extension/skins with commands. Specific details about the Canasta installation could be altered by passing in values via keyword arguments.
+
+### Why is it recommended
+Canasta CLI, simplifies the process of creating and managing a Canasta installation. Even without the knowledge of Docker and Docker-Compose, one can get started with a Canasta instance using the CLI. Simple command to [create a new wiki](#create-a-new-wiki) helps to get started in minutes.
+
+### Installation
+* Run the following line to install the Canasta CLI:
+
+```
+curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
+``` 
+
+### Create a new wiki
+* Run the following command to create a new Canasta installation with default configurations.
+```
+sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
+```
+* Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
+* For more info on finishing up your installation, visit [After Installation](#after-installation).
+
+### Import an existing wiki
+* Place all the files mentioned below in the same directory for ease of use.
+* Create a .env file and customize as needed (more details on how to configure it at [Configuration](#Configuration), and for an example see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example)).
+* Drop your database dump (in either a .sql or .sql.gz file).
+* Place your existing LocalSettings.php and change your database configuration to be the following:
+  * Database host: db
+  * Database user: root
+  * Database password: mediawiki (by default; see [Configuration](#Configuration))
+* Then run the following command:
+```
+sudo canasta import -i importWikiId -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php  
+```
+* Visit your wiki at its URL (or http://localhost if installed locally or if you did not specify any domain).
+* For more info on finishing up your installation, visit [After Installation](#after-installation).
+
+### Enable/disable an extension
+* To enable a Canasta extension, run the following command:
+```
+sudo canasta extension enable Bootstrap -i canastaId
+```
+
+### Enable/disable a skin
+* To enable a Canasta skin, run the following command:
+```
+sudo canasta skin enable Vector -i canastaId
+```
+
+* Note: For more info on using the cli visit the [CLI page](cli.md)
+
+## Manual Installation
+
 ### Import existing wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
@@ -40,7 +93,7 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 ### After installation
 There's several things you can do to polish up your wiki so it's ready for use:
 
-* To add popular extensions quickly, visit the [extensions setup](extensions-setup) page to explore your choices.
+* To add popular extensions quickly, visit the [Canasta extensions](#enabling-extensions) page to explore your choices.
 * Add a skin to your wiki by choosing a skin and add a `cfLoadSkin` call to `LocalSettings.php`. For instance, to install Vector, add: `cfLoadSkin( 'Vector' );` to `LocalSettings.php`.
 * All `.php` files in the `config/settings/` directory will be loaded as if their contents were in `LocalSettings.php`. In addition, if you want to remove the Canasta footer icon, you can remove the `config/settings/CanastaFooterIcon.php` file.
 
