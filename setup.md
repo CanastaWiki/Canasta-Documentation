@@ -15,6 +15,9 @@ You should have both Docker Engine and Docker Compose installed. This is very fa
 ## Recommended: CLI Installation
 The easiest, and recommended, approach to set up Canasta installations is to use the [Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (command-line interface). It lets you install and use Canasta without having to know anything about Docker or Docker Compose. Then, once it is installed, the CLI can be used to easily create, import, start, stop, manage extension/skins, and back up Canasta installations.
 
+The following covers the installation, and a few of the commands, of the Canasta CLI.
+For complete documentation on the CLI, visit the [CLI page](cli.md).
+
 ### Installation
 * Run the following line to install the Canasta CLI:
 
@@ -56,8 +59,6 @@ sudo canasta extension enable Bootstrap -i canastaId
 ```
 sudo canasta skin enable Vector -i canastaId
 ```
-
-* Note: For more info on using the cli visit the [CLI page](cli.md)
 
 ## Manual Installation
 
