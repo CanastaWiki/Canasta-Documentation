@@ -1,10 +1,11 @@
 # Setup
 
 ## Quick setup
-Quick setup instructions assume you are using Docker Compose. For most users, using Docker Compose is the best choice.
+Canasta requires the use of Docker, and then additionally either Docker Compose or Kubernetes as an orchestration framework.
+For most users, Docker Compose is the best choice; the following instructions are specifically for the use of Docker Compose.
 
 ### Before starting
-You should have Docker Engine and Docker Compose installed. This is very fast and easy to do on common Linux distros such as Debian, Ubuntu, Red Hat, and CentOS. By installing Docker Engine from `apt` or `yum`, you get Docker Compose along with it. See the following install guides for each OS:
+You should have both Docker Engine and Docker Compose installed. This is very fast and easy to do on common Linux distributions such as Debian, Ubuntu, Red Hat, and CentOS. By installing Docker Engine from `apt` or `yum`, you get Docker Compose along with it. See the following install guides for each OS:
 
 * [Debian](https://docs.docker.com/engine/install/debian/)
 * [Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
@@ -12,11 +13,7 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 * More available at [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
 
 ## Recommended: CLI Installation
-### What is Canasta CLI
-[Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (Command Line Interface) is a tool to manage Canasta installations. It can create, import, start, stop, manage extension/skins with commands. Specific details about the Canasta installation could be altered by passing in values via keyword arguments.
-
-### Why is it recommended
-Canasta CLI, simplifies the process of creating and managing a Canasta installation. Even without the knowledge of Docker and Docker-Compose, one can get started with a Canasta instance using the CLI. Simple command to [create a new wiki](#create-a-new-wiki) helps to get started in minutes.
+The easiest, and recommended, approach to set up Canasta installations is to use the [Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (command-line interface). It lets you install and use Canasta without having to know anything about Docker or Docker Compose. Then, once it is installed, the CLI can be used to easily create, import, start, stop, manage extension/skins, and back up Canasta installations.
 
 ### Installation
 * Run the following line to install the Canasta CLI:
