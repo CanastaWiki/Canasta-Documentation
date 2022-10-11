@@ -83,7 +83,8 @@ sudo canasta skin enable Vector -i canastaId
   * Database user: `root`
   * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section)
 * Place your new `LocalSettings.php` in the `config/` directory
-  * Be sure to add `cfLoadSkin( 'Vector' );` to enable the Vector skin, `cfLoadExtension( 'VisualEditor' );` for VisualEditor, etc. (More information about installing extensions can be found at the extensions setup page.)
+  * We've already added a file in the `config/settings/` directory to enable the Vector skin by default, so your wiki will work right off the bat. But feel free to delete this if you are going to use another skin.
+  * Be sure to add `wfLoadExtension( 'VisualEditor' );` for VisualEditor, etc. (More information about installing extensions can be found at the extensions setup page.)
 * Run `docker-compose down`, then `docker-compose up -d` (this is important because it initializes your `LocalSettings.php` for Canasta)
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
 * For more info on finishing up your installation, go to the "After installation" section.
@@ -92,7 +93,7 @@ sudo canasta skin enable Vector -i canastaId
 There's several things you can do to polish up your wiki so it's ready for use:
 
 * To add popular extensions quickly, visit the [Canasta extensions](#enabling-extensions) page to explore your choices.
-* Add a skin to your wiki by choosing a skin and add a `cfLoadSkin` call to `LocalSettings.php`. For instance, to install Vector, add: `cfLoadSkin( 'Vector' );` to `LocalSettings.php`.
+* Add a skin to your wiki by choosing a skin and add a `wfLoadSkin` call to `LocalSettings.php`. For instance, to install Timeless, add: `wfLoadSkin( 'Timeless' );` to `LocalSettings.php`.
 * All `.php` files in the `config/settings/` directory will be loaded as if their contents were in `LocalSettings.php`. In addition, if you want to remove the Canasta footer icon, you can remove the `config/settings/CanastaFooterIcon.php` file.
 
 ## Configuration
@@ -121,18 +122,22 @@ with a mysql dump. You can place `.sql` or `.gz` database dump there. This is op
 intended to be used for migrations only.
 
 ## Enabling extensions
-In `LocalSettings.php` you can add an extension by picking its name from our [list of bundled extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) and add a `cfLoadExtension`, e.g.:
+In `LocalSettings.php` you can add an extension by picking its name from our [list of bundled extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) and add a `wfLoadExtension`, e.g.:
 
 ```php
-cfLoadExtension( 'Cite' );
+wfLoadExtension( 'Cite' );
 ```
+
+As of Canasta 1.2.0, `cfLoadExtension` has been retired in favor of `wfLoadExtension`, which can now automatically detect and load an extension whether it's bundled or user-provided.
 
 ## Enabling skins
-In `LocalSettings.php` you can add a skin by picking its name from our [list of bundled skins](https://canasta.wiki/documentation/#skins-included-in-canasta) and add a `cfLoadSkin` call, e.g.:
+In `LocalSettings.php` you can add a skin by picking its name from our [list of bundled skins](https://canasta.wiki/documentation/#skins-included-in-canasta) and add a `wfLoadSkin` call, e.g.:
 
 ```php
-cfLoadSkin( 'Timeless' );
+wfLoadSkin( 'Timeless' );
 ```
+
+As of Canasta 1.2.0, `cfLoadSkin` has been retired in favor of a `wfLoadSkin`, which can now automatically detect and load a skin whether it's bundled or user-provided.
 
 ## Installing 3rd party extensions
 In order to install a 3rd party extension, simply place it in the `./extensions`

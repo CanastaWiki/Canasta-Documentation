@@ -2,24 +2,24 @@
 Canasta bundles over 100 extensions and skins to make life easy for you. However, Canasta remains neutral and doesn't require you/"voluntell" you to install any certain skin or extension. Therefore, you still need to add some lines to `LocalSettings.php` to set up the wiki with the extensions you want. (In the future, a command-line interface will be made available to facilitate this.)
 
 ## 1. A very simple starting point
-There are a few major "revolutionary" extensions that add significant functionality to MediaWiki and that virtually all wikis should be using. Along with a skin of choice, this mini-guide walks you through how to set up the following:
+There are a few major "must have" extensions that add significant functionality to MediaWiki and that virtually all wikis should be using. Along with a skin of choice, this mini-guide walks you through how to set up the following:
 
 - Vector
 - VisualEditor
 - CirrusSearch (and Elastica and AdvancedSearch)
 
-### Quick setup of revolutionary extensions
+### Quick setup of must have extensions
 
 1. Add the following into `LocalSettings.php`:
 
 ```php
-$wgDefaultSkin = 'vector';
+$wgDefaultSkin = 'vector'; // wfLoadSkin( 'Vector' ); is present in config/settings/Vector.php
 
-cfLoadExtension( 'VisualEditor' );
+wfLoadExtension( 'VisualEditor' );
 
-cfLoadExtension( 'Elastica' );
-cfLoadExtension( 'CirrusSearch' );
-cfLoadExtension( 'AdvancedSearch' );
+wfLoadExtension( 'Elastica' );
+wfLoadExtension( 'CirrusSearch' );
+wfLoadExtension( 'AdvancedSearch' );
 
 $wgSearchType = 'CirrusSearch';
 $wgCirrusSearchServers = [ 'elasticsearch' ];
@@ -43,38 +43,38 @@ There are a larger number of extensions, most of which are already bundled with 
 1. Copy and paste this into your `LocalSettings.php` file to enable them:
 
 ```php
-cfLoadExtension( 'Cite' );
-cfLoadExtension( 'CiteThisPage' );
-cfLoadExtension( 'CodeEditor' );
-cfLoadExtension( 'ConfirmEdit' );
-cfLoadExtension( 'Gadgets' );
-cfLoadExtension( 'ImageMap' );
-cfLoadExtension( 'InputBox' );
-cfLoadExtension( 'Interwiki' );
-cfLoadExtension( 'MobileFrontend' );
-cfLoadExtension( 'MultimediaViewer' );
-cfLoadExtension( 'Nuke' );
-cfLoadExtension( 'OATHAuth' );
-cfLoadExtension( 'PageImages' );
-cfLoadExtension( 'ParserFunctions' );
-cfLoadExtension( 'PdfHandler' );
-cfLoadExtension( 'Poem' );
-cfLoadExtension( 'Renameuser' );
-cfLoadExtension( 'ReplaceText' );
-cfLoadExtension( 'Scribunto' );
-cfLoadExtension( 'SecureLinkFixer' );
-cfLoadExtension( 'SpamBlacklist' );
-cfLoadExtension( 'TemplateData' );
-cfLoadExtension( 'TextExtracts' );
-cfLoadExtension( 'TitleBlacklist' );
-cfLoadExtension( 'WikiEditor' );
+wfLoadExtension( 'Cite' );
+wfLoadExtension( 'CiteThisPage' );
+wfLoadExtension( 'CodeEditor' );
+wfLoadExtension( 'ConfirmEdit' );
+wfLoadExtension( 'Gadgets' );
+wfLoadExtension( 'ImageMap' );
+wfLoadExtension( 'InputBox' );
+wfLoadExtension( 'Interwiki' );
+wfLoadExtension( 'MobileFrontend' );
+wfLoadExtension( 'MultimediaViewer' );
+wfLoadExtension( 'Nuke' );
+wfLoadExtension( 'OATHAuth' );
+wfLoadExtension( 'PageImages' );
+wfLoadExtension( 'ParserFunctions' );
+wfLoadExtension( 'PdfHandler' );
+wfLoadExtension( 'Poem' );
+wfLoadExtension( 'Renameuser' );
+wfLoadExtension( 'ReplaceText' );
+wfLoadExtension( 'Scribunto' );
+wfLoadExtension( 'SecureLinkFixer' );
+wfLoadExtension( 'SpamBlacklist' );
+wfLoadExtension( 'TemplateData' );
+wfLoadExtension( 'TextExtracts' );
+wfLoadExtension( 'TitleBlacklist' );
+wfLoadExtension( 'WikiEditor' );
 
-cfLoadSkin( 'MinervaNeue' );
+wfLoadSkin( 'MinervaNeue' );
 
 $wgMFDefaultSkinClass = 'SkinMinerva';
 ```
 
-Note that this block of `cfLoadExtension`s doesn't include VisualEditor or CirrusSearch because they were already installed in the preceding section.
+Note that this block of `wfLoadExtension`s doesn't include VisualEditor or CirrusSearch because they were already installed in the preceding section.
 
 2. Restart Canasta. This is necessary for login to work (since OATHAuth creates new database tables). Use this one-liner:
 
