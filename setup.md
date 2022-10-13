@@ -174,3 +174,14 @@ directory and add a `wfLoadSkin` call to `./config/LocalSettings.php`, e.g.:
 ```php
 wfLoadSkin( 'MyCustomSkin' );
 ```
+
+## Using hardened container
+The United States Department of Defense (DoD) has publicly released a hardened version of Canasta, which means it's been specially patched and vetted to be secure enough for internal use in the U.S. military. While it will usually be a few versions behind, it has been cleared of security vulnerabilities by the DoD.
+
+You can adjust your image used (in `docker-compose.override.yml` if you use our Docker Compose stack) to the following:
+
+MediaWiki 1.35.6: `registry1.dso.mil/ironbank/opensource/canastawiki/canasta:1.35.6`
+
+Repository: https://repo1.dso.mil/dsop/opensource/canastawiki/canasta
+
+Please note, this version uses cfLoadExtension/cfLoadSkin.
