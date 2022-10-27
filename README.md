@@ -152,25 +152,21 @@ It is recommended to replace `hostPath` mounts with [PersistentVolume](https://k
 # Help and assistance
 
 ## Frequently asked questions
-* **Why shouldn't we use the Canasta image's repo?**
+- **Why shouldn't we use the Canasta image's repo?**
 
 The stack repo, regardless of which type you choose (Docker Compose, Kubernetes, etc.), will clone the appropriate Docker *image*, which is pre-built for your convenience and will be pulled when you first start up Canasta. The source code could technically be used to build the Docker image, but that is really not necessary; that would be like building your own binary from source code instead of just downloading the binary provided to you by the developers.
 
+- **Why does Canasta use Apache instead of Nginx?**
+
+Canasta uses Apache because the Wikimedia Foundation uses Apache to run Wikipedia and its other projects. By sticking as close to the Wikimedia Foundation's technology stack as possible, we get the best chance at running MediaWiki without bugs and in a sustainably maintainable way.
+
+- **Does Canasta have a version that uses Nginx instead of Apache?**
+
+At the moment, the base Canasta image does not offer an Nginx flavor. However, anyone is welcome to make a derivative image of Canasta (instructions to do this are on another page) and replace Apache with Nginx as desired.
+
 ## Troubleshooting
 
-* When accessing my Canasta instance, I am getting **"SSL protocol error" in the browser or "sitemap permission denied" in the Canasta job queue logs**.
-
-This probably means your `.env` doesn't exist.
-
-* **There is some issue with starting up the stack repo, as the database is complaining.**
-
-```ERROR: for db  Cannot start service db: OCI runtime create failed: container_linux.go:380: starting container process caused: process_linux.go:545: container init caused: rootfs_linux.go:76: mounting "/home/ubuntu/Canasta-DockerCompose/_initdb" to rootfs at "/docker-entrypoint-initdb.d" caused: mount through procfd: not a directory: unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type```
- 
-This probably means your `_initdb` directory either doesn't exist or you named your SQL dump `_initdb` rather than putting it into a directory called `_initdb`. Delete whatever you had, (re)create the `_initdb` directory, add your SQL dump into it, and delete all volumes created. Run `docker volume ls` and use `docker volume rm` to delete those volumes.
-
-* **I'm getting a database error after putting in a SQL dump in `_initdb`?**
-
-You likely initialized Canasta already by starting it with `docker-compose up -d`, then placed the SQL file in `_initdb`. Please delete your MySQL data volume and place the SQL file in `_initdb` before trying to start Canasta again. Run `docker volume ls` and use `docker volume rm` to delete those volumes.
+Please see the troubleshooting page for more info.
 
 ## More assistance
 You can open an issue on the Canasta image's GitHub repo's issues page. [Canasta issues](https://github.com/CanastaWiki/Canasta/issues)
