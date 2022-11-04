@@ -8,7 +8,7 @@ Below is the mapping of Canasta versions to MediaWiki versions. Each Canasta ver
 | 1.3.0 (future) | 1.39.0 (future) |
 
 ## Concurrent support for MediaWiki 1.35 and 1.39
-(The below is a draft proposal not yet agreed upon by the Canasta developer community.)
+(The below plan has been ratified by the Benevolent Dictator.)
 
 When MediaWiki 1.39 is released, several of Canasta's bundled extensions, including Semantic MediaWiki, are not expected to support 1.39. As a result, they will inevitably be unusable in versions of Canasta using MediaWiki 1.39 until the extension authors release patches to support them. This is not a limitation of Canasta and solely reflects the situation of the extension's incompatibility with MediaWiki 1.39. While Canasta will make every effort possible to release an update of Canasta that incorporates the updated extension as soon as the new version is released, in the meantime, Canasta will have no choice but to temporarily disable these extensions in Canasta versions built on 1.39.
 
