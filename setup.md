@@ -28,7 +28,7 @@ curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install
 ### Create a new wiki
 * Run the following command to create a new Canasta installation with default configurations.
 ```
-sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
+sudo canasta create -i canastaId -n example.com -w "Canasta Wiki" -a admin -o docker-compose
 ```
 * Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
 * For more info on finishing up your installation, visit [After Installation](#after-installation).
