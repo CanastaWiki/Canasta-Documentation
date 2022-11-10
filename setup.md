@@ -175,13 +175,87 @@ directory and add a `wfLoadSkin` call to `./config/LocalSettings.php`, e.g.:
 wfLoadSkin( 'MyCustomSkin' );
 ```
 
-## Using hardened image
-The United States Department of Defense (DoD) has publicly released a hardened version of Canasta, which means it's been specially patched and vetted to be secure enough for internal use in the U.S. military. While it will usually be a few versions behind, it has been cleared of security vulnerabilities by the DoD.
+## Using hardened image (Iron Bank Canasta)
+The United States Department of Defense (DoD) publicly releases a hardened version of Canasta, which means it's been specially patched and vetted to be secure enough for internal use in the U.S. military. While it might be a version or two behind, it has been cleared of security vulnerabilities by the DoD.
 
-You can adjust your image used (in `docker-compose.override.yml` if you use our Docker Compose stack) to the following:
+The hardened version of Canasta (Iron Bank Canasta) has significant internal changes made, but aims to replicate the functionality offered by the standard release. Changes notably include, but not limited to:
 
-MediaWiki 1.35.6: `registry1.dso.mil/ironbank/opensource/canastawiki/canasta:1.35.6`
+- The use of the DoD's hardened version of Red Hat (RHEL) instead of Debian
+- Apache is exposed to port `8080` instead of port `80`
+
+Canasta 1.2.0, MediaWiki 1.35.8: `registry1.dso.mil/ironbank/opensource/canastawiki/canasta:1.35.8`
 
 Repository: https://repo1.dso.mil/dsop/opensource/canastawiki/canasta
 
-Please note, this version uses cfLoadExtension/cfLoadSkin.
+**Disclaimer**: The U.S. Department of Defense does not sponsor or endorse Canasta in any way, but is kind enough to make their hardened version of Canasta available to the public. Similarly, the Canasta Project does not offer any guarantees that Iron Bank Canasta will function the exact same way as standard Canasta. Neither the Canasta Project nor the DoD provides official support for Iron Bank Canasta.
+
+### Setup instructions
+#### Step 1:
+
+Make an account on `dso.mil` below, which requires MFA or DoD Common Access Card but is open to the public.
+
+[https://login.dso.mil/register](https://login.dso.mil/register)
+
+#### Step 2:
+
+Once signed in, access Registry 1 to retrieve your username and personal CLI secret for Docker login. (This is analogous to a personal access token on GitHub.)
+
+[https://registry1.dso.mil/](https://registry1.dso.mil/)
+
+At top right, choose your profile > CLI secret > copy
+
+#### Step 3:
+
+In the terminal of your Docker environment, connect Docker with the registry:
+
+```
+docker login https://registry1.dso.mil/ 
+```
+
+The first time you run this, it will prompt for your username and password. Use the credentials from Step 2, with password='CLI secret' (i.e. the personal access token) from your user profile at https://registry1.dso.mil/. 
+
+#### Step 4:
+
+Pull the images to your machine:
+
+```
+docker pull registry1.dso.mil/ironbank/opensource/canastawiki/canasta:1.35.6
+docker pull registry1.dso.mil/ironbank/opensource/mariadb/mariadb:10.6.7
+```
+
+#### Step 5:
+
+Change the image your orchestrator uses (by editing `docker-compose.override.yml` if you use our Docker Compose stack) to the following:
+
+- `web`: `registry1.dso.mil/ironbank/opensource/canastawiki/canasta:1.35.8`
+- `db`: `registry1.dso.mil/ironbank/opensource/mariadb/mariadb:10.6.7`
+
+For instance, the `docker-compose.override.yml` file might look like this:
+
+```
+version: '3.7'
+# The above version is the Docker Compose manifest's version, not the Canasta Docker Compose stack's version.
+#
+# --- Canasta Stack for Docker Compose ---
+#
+# If you need to make changes to the stack, make them here.
+# Only edits to docker-compose.override.yml are officially supported by Canasta.
+#
+# Uncomment the commented services and add lines below them if you would like to make additional customizations to them.
+services:
+  db:
+    image: registry1.dso.mil/ironbank/opensource/mariadb/mariadb:10.6.7
+  web:
+    image: registry1.dso.mil/ironbank/opensource/canastawiki/canasta:1.35.8
+  #elasticsearch:
+  #caddy:
+  #varnish:
+```
+
+#### Step 6:
+
+Additional considerations, such as Apache now using port `8080` instead of `80`, should be made when adapting your wiki to using Iron Bank Canasta.
+
+#### After initial setup
+
+It will be necessary to repeat the above login steps for each new session to relogin.
