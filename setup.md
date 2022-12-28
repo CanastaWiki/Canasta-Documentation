@@ -35,6 +35,7 @@ For complete documentation on the CLI, visit the [CLI page](cli.md).
 ```
 curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
 ``` 
+* When prompted, enter your local system password (because the installer and CLI require `sudo` usage).
 
 ### Create a new wiki
 * Run the following command to create a new Canasta installation with default configurations.
