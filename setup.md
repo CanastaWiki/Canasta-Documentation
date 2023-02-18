@@ -84,14 +84,14 @@ sudo canasta skin enable Vector -i canastaId
   * Database user: `root`
   * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section)
 * Navigate to the repo directory and run `docker-compose up -d`
-* Visit your wiki at its URL (or `http://localhost` if installed locally)
+* Visit your wiki at its URL (or `https://localhost` if installed locally)
 * For more info on finishing up your installation, go to the "After installation" section.
 
 ### Create new wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
 * Navigate to the repo directory and run `docker-compose up -d`
-* Navigate to its URL (or `http://localhost` if installed locally) and run the MediaWiki setup wizard with the following info:
+* Navigate to its URL (or `https://localhost` if installed locally) and run the MediaWiki setup wizard with the following info:
   * Database host: `db`
   * Database user: `root`
   * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section)
