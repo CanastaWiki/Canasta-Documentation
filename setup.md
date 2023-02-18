@@ -3,13 +3,14 @@
 ## Prerequisites
 Canasta officially supports host systems which satisfy the following requirements:
 
-- Ubuntu, Debian, Red Hat, and CentOS
+- Ubuntu, Debian, Red Hat, Fedora, and CentOS
 - Capable of running Docker Engine (NOT Docker Desktop)
   - [Docker's requirements](https://docs.docker.com/desktop/install/linux-install/)
-- x86-64 architecture
-  - ARMv8 (correctly known as AArch64) is currently experimental and not supported
+- x86-64 (also known as AMD64) and ARMv8 (correctly known as AArch64)
 
-Other similar systems may work, but are not supported.
+Other similar systems may work, but are not supported. You may use them at your own risk.
+
+Canasta is known to work on Windows 11 when Docker Desktop runs using Windows Subsystem for Linux 2 instead of Hyper-V, but this behavior is not officially supported. See this email thread for more details: ["I got Canasta working on Windows"](https://groups.google.com/u/2/g/canasta-wiki/c/Ou_HIG_bjkc).
 
 ## Quick setup
 Canasta requires the use of Docker, and then additionally either Docker Compose or Kubernetes as an orchestration framework.
