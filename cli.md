@@ -34,7 +34,7 @@ Available Commands:
   skin        Manage Canasta skins
   extension   Manage Canasta extensions
   restic      Use restic to backup and restore Canasta
-  maintenance Run maintenance update jobs
+  maintenance Use to run update and other maintenance scripts
   delete      Delete a Canasta installation
   help        Help about any command
 
