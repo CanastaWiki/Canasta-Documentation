@@ -6,11 +6,11 @@ Canasta officially supports host systems which satisfy the following requirement
 - Ubuntu, Debian, Red Hat, Fedora, and CentOS
 - Capable of running Docker Engine (NOT Docker Desktop)
   - [Docker's requirements](https://docs.docker.com/desktop/install/linux-install/)
-- x86-64 (also known as AMD64) and ARMv8 (correctly known as AArch64)
+- x86-64 (also known as AMD64) and ARM64v8 (technically known as AArch64)
 
 Other similar systems may work, but are not supported. You may use them at your own risk.
 
-Canasta is known to work on Windows 11 when Docker Desktop runs using Windows Subsystem for Linux 2 instead of Hyper-V, but this behavior is not officially supported. See this email thread for more details: ["I got Canasta working on Windows"](https://groups.google.com/u/2/g/canasta-wiki/c/Ou_HIG_bjkc).
+Canasta is known to work on Windows 11 when Docker Desktop runs using Windows Subsystem for Linux 2 instead of Hyper-V, but this behavior is not officially supported. See this email thread for more details: ["I got Canasta working on Windows"](https://groups.google.com/g/canasta-wiki/c/Ou_HIG_bjkc).
 
 ## Quick setup
 Canasta requires the use of Docker, and then additionally either Docker Compose or Kubernetes as an orchestration framework.
@@ -26,6 +26,8 @@ You should have both Docker Engine and Docker Compose installed. This is very fa
 
 ## Recommended: CLI installation
 The easiest, and recommended, approach to set up Canasta installations is to use the [Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (command-line interface). It lets you install and use Canasta without having to know anything about Docker or Docker Compose. Then, once it is installed, the CLI can be used to easily create, import, start, stop, manage extension/skins, and back up Canasta installations.
+
+Note: The Canasta CLI currently only supports installing the latest version of Canasta. As of February 18, 2023, the Canasta CLI only supports installing Canasta 1.3+ (MediaWiki 1.39). If you need to install Canasta 1.2 (which uses MediaWiki 1.35), follow the [manual installation instructions](#manual-installation).
 
 The following covers the installation, and a few of the commands, of the Canasta CLI.
 For complete documentation on the CLI, visit the [CLI page](cli.md).
@@ -77,6 +79,7 @@ sudo canasta skin enable Vector -i canastaId
 
 ### Import existing wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
+* If you need to use Canasta 1.2 instead of Canasta 1.3, do `git checkout 1.2.x`
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
 * Drop your database dump (in either a `.sql` or `.sql.gz` file) into the `_initdb/` directory
 * Place your existing `LocalSettings.php` in the `config/` directory and change your database configuration to be the following:
@@ -89,6 +92,7 @@ sudo canasta skin enable Vector -i canastaId
 
 ### Create new wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
+* If you need to use Canasta 1.2 instead of Canasta 1.3, do `git checkout 1.2.x`
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
 * Navigate to the repo directory and run `docker-compose up -d`
 * Navigate to its URL (or `https://localhost` if installed locally) and run the MediaWiki setup wizard with the following info:
