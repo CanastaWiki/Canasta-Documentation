@@ -46,7 +46,7 @@ Flags:
 Use "sudo canasta [command] --help" for more information about a command.
 ```
 ## Create a new wiki
-* Run the following command to create a new Canasta installation with default configurations.
+* Run the following command to create a new Canasta installation with default configurations. This will create a folder named `canastaId` in the directory in which you're running this command.
 ```
 sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
 ```
