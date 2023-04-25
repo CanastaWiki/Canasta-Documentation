@@ -210,13 +210,13 @@ Repository: https://repo1.dso.mil/dsop/opensource/canastawiki/canasta
 **Disclaimer**: The U.S. Department of Defense does not sponsor or endorse Canasta in any way, but is kind enough to make their hardened version of Canasta available to the public. Similarly, the Canasta Project does not offer any guarantees that Iron Bank Canasta will function the exact same way as standard Canasta. Neither the Canasta Project nor the DoD provides official support for Iron Bank Canasta.
 
 ### Setup instructions
-#### Step 1:
+#### 1. Create dso.mil account
 
 Make an account on `dso.mil` below, which requires MFA or DoD Common Access Card but is open to the public.
 
 [https://login.dso.mil/register](https://login.dso.mil/register)
 
-#### Step 2:
+#### 2. Get credentials
 
 Once signed in, access Registry 1 to retrieve your username and personal CLI secret for Docker login. (This is analogous to a personal access token on GitHub.)
 
@@ -224,7 +224,7 @@ Once signed in, access Registry 1 to retrieve your username and personal CLI sec
 
 At top right, choose your profile > CLI secret > copy
 
-#### Step 3:
+#### 3. Log in to dso.mil
 
 In the terminal of your Docker environment, connect Docker with the registry:
 
@@ -234,7 +234,7 @@ docker login https://registry1.dso.mil/
 
 The first time you run this, it will prompt for your username and password. Use the credentials from Step 2, with password='CLI secret' (i.e. the personal access token) from your user profile at https://registry1.dso.mil/. 
 
-#### Step 4:
+#### 4. Download Iron Bank images
 
 Pull the images to your machine:
 
@@ -243,7 +243,7 @@ docker pull registry1.dso.mil/ironbank/opensource/canastawiki/canasta:1.35.6
 docker pull registry1.dso.mil/ironbank/opensource/mariadb/mariadb:10.6.7
 ```
 
-#### Step 5:
+#### 5. Switch to using these images
 
 Change the image your orchestrator uses (by editing `docker-compose.override.yml` if you use our Docker Compose stack) to the following:
 
@@ -272,7 +272,7 @@ services:
   #varnish:
 ```
 
-#### Step 6:
+#### 6. Additional setup
 
 Additional considerations, such as Apache now using port `8080` instead of `80`, should be made when adapting your wiki to using Iron Bank Canasta.
 
