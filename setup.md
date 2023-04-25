@@ -107,11 +107,14 @@ sudo canasta skin enable Vector -i canastaId
 * For more info on finishing up your installation, go to the "After installation" section.
 
 ### After installation
-There's several things you can do to polish up your wiki so it's ready for use:
+Once your wiki is installed, there are many customizations you can do:
 
-* To add popular extensions quickly, visit the [Canasta extensions](#enabling-extensions) page to explore your choices.
-* Add a skin to your wiki by choosing a skin and add a `wfLoadSkin` call to `LocalSettings.php`. For instance, to install Timeless, add: `wfLoadSkin( 'Timeless' );` to `LocalSettings.php`.
-* All `.php` files in the `config/settings/` directory will be loaded as if their contents were in `LocalSettings.php`. In addition, if you want to remove the Canasta footer icon, you can remove the `config/settings/CanastaFooterIcon.php` file.
+* Canasta contains around 10 skins and 150 extensions; it is easy to install any of these by adding the appropriate calls to wfLoadSkin() or wfLoadExtension(). See [Enabling skins](#enabling-skins) and [Enabling extensions](#enabling-extensions) for more information.
+* You can also install custom skins and extension fairly easily; see [Installing 3rd party skins](#installing-3rd-party-skins) and [Installing 3rd party extensions](#installing-3rd-party-extensions).
+* MediaWiki (and its extensions and skins) can be configured in all sorts of ways. MediaWiki alone has over 1,000 configuration settings; see [here](https://www.mediawiki.org/wiki/Special:MyLanguage/Category:MediaWiki_configuration_settings) for one listing of them.
+* All of the above changes can involve adding lines to `LocalSettings.php`; but note that, within Canasta specifically, you can also add configurations by adding settings files with any name - as long as they end in `.php` - to the `config/settings/` directory. (That is how the Canasta command-line `skin enable` and `extension enable` commands operate, for example.)
+* The directory `config/settings/` comes preloaded with one file: `CanastaFooterIcon.php`, which adds a "Powered by Canasta" icon to the bottom of every wiki page. If you want to remove this icon, you can simply delete this file.
+* If you are using Docker Compose, you can also make configurations to the overall environment by editing the file `docker-compose.override.yml`.
 
 ## Configuration
 Canasta relies on setting environment variables in the Docker container for controlling
