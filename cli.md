@@ -2,7 +2,7 @@
 The Canasta command line interface, written in Go.
 
 ## Before starting
-You should have Docker Engine and Docker Compose installed. This is very fast and easy to do on common Linux distros such as Debian, Ubuntu, Red Hat, and CentOS. By installing Docker Engine from `apt` or `yum`, you get Docker Compose along with it. See the following install guides for each OS:
+Before running Canasta, and ideally before installing it, you should have both Docker Engine and Docker Compose installed. Installing both is generally fast and easy to do on common Linux distributions such as Debian, Ubuntu, Red Hat, and CentOS. By installing Docker Engine via `apt` or `yum`, you usually get Docker Compose along with it. See the following install guides for each OS:
 
 * [Debian](https://docs.docker.com/engine/install/debian/)
 * [Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
@@ -10,13 +10,14 @@ You should have Docker Engine and Docker Compose installed. This is very fast an
 * More available at [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
 
 ## Installation
-* Then, run the following line to install the Canasta CLI:
+Then, run the following line to install the Canasta CLI:
 
 ```
 curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
 ``` 
 
 ## All available commands
+This is the output of the Canasta CLI `help` printout:
 
 ```
 A CLI tool to create, import, start, stop and backup multiple Canasta installations
@@ -50,8 +51,8 @@ Use "sudo canasta [command] --help" for more information about a command.
 ```
 sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
 ```
-* Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain).
-* For more info on finishing up your installation, visit [after installation](setup.md#after-installation).
+* Visit your wiki at its URL; for the above command, it would be https://example.com. (if Canasta is installed locally or you did not specify any domain, it would be http://localhost.)
+* For more info on finishing up your installation, go to the [after installation](setup.md#after-installation) section.
 
 ## Import an existing wiki
 * Place all the files mentioned below in the same directory for ease of use.
@@ -143,7 +144,7 @@ Use "sudo canasta restic [command] --help" for more information about a command.
 
 ## /etc/canasta/conf.json
 * Canasta CLI maintains a list of installations that it manages. This information is stored at /etc/canasta/conf.json. Therefore the CLI would require permissions to read and write to the `/etc/canasta/` folder.
-* The scheme of the `conf.json` file is as follows
+* The layout of the `conf.json` file is as follows:
 ```
 {
 	"Installations": {
