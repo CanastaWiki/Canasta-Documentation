@@ -110,7 +110,7 @@ sudo canasta skin enable Vector -i canastaId
 Once your wiki is installed, there are many customizations you can do:
 
 * Canasta contains around 10 skins and 150 extensions; it is easy to install any of these by adding the appropriate calls to wfLoadSkin() or wfLoadExtension(). See [Enabling skins](#enabling-skins) and [Enabling extensions](#enabling-extensions) for more information.
-* You can also install custom skins and extension fairly easily; see [Installing 3rd party skins](#installing-3rd-party-skins) and [Installing 3rd party extensions](#installing-3rd-party-extensions).
+* You can also install custom skins and extension fairly easily; see [Installing additional skins](#installing-additional-skins) and [Installing additional extensions](#installing-additional-extensions).
 * MediaWiki (and its extensions and skins) can be configured in all sorts of ways. MediaWiki alone has over 1,000 configuration settings; see [here](https://www.mediawiki.org/wiki/Special:MyLanguage/Category:MediaWiki_configuration_settings) for one listing of them.
 * All of the above changes can involve adding lines to `LocalSettings.php`; but note that, within Canasta specifically, you can also add configurations by adding settings files with any name - as long as they end in `.php` - to the `config/settings/` directory. (That is how the Canasta command-line `skin enable` and `extension enable` commands operate, for example.)
 * The directory `config/settings/` comes preloaded with one file: `CanastaFooterIcon.php`, which adds a "Powered by Canasta" icon to the bottom of every wiki page. If you want to remove this icon, you can simply delete this file.
@@ -133,9 +133,9 @@ You can add/modify extensions and skins using the following mount points:
 volumed in as `mediawiki/config/LocalSettings.php -> /var/www/mediawiki/w/LocalSettings.php`
 * `./images` - persistent bind-mount which stores the wiki images,
 volumed in as `mediawiki/images -> /var/www/mediawiki/w/images`
-* `./skins` - persistent bind-mount which stores 3rd party skins,
+* `./skins` - persistent bind-mount which stores user-installed skins,
 volumed in as `/var/www/mediawiki/w/user-skins`
-* `./extensions` - persistent bind-mount which stores 3rd party extensions,
+* `./extensions` - persistent bind-mount which stores user-installed extensions,
 volumed in as `/var/www/mediawiki/w/user-extensions`
 * `./_initdb` - persistent bind-mount which can be used to initialize the database container
 with a mysql dump. You can place `.sql` or `.gz` database dump there. This is optional and
@@ -159,8 +159,8 @@ wfLoadSkin( 'Timeless' );
 
 As of Canasta 1.2.0, `cfLoadSkin` has been retired in favor of a `wfLoadSkin`, which can now automatically detect and load a skin whether it's bundled or user-provided.
 
-## Installing 3rd party extensions
-In order to install a 3rd party extension, simply place it in the `./extensions`
+## Installing additional extensions
+To install a non-Canasta extension, simply place it in the `./extensions`
 directory and add a `wfLoadExtension` call to `./config/LocalSettings.php`, e.g.:
 
 ```php
@@ -168,7 +168,7 @@ wfLoadExtension( 'MyCustomExtension' );
 ```
 
 ### Composer packages
-If a 3rd party extension requires some Composer packages to be installed, just
+If an additional (non-Canasta) extension requires some Composer packages to be installed, just
 add a line for the extension's `composer.json` file to the
 `config/composer.local.json` file, e.g.:
 
@@ -187,8 +187,8 @@ add a line for the extension's `composer.json` file to the
 Note: the `require` section of `config/composer.local.json` is ignored; thus
 you won't be able to install new extensions via Composer, only dependencies.
 
-## Installing 3rd party skins
-In order to install a 3rd party skin, simply place it in the `./skins`
+## Installing additional skins
+In order to install a non-Canasta skin, simply place it in the `./skins`
 directory and add a `wfLoadSkin` call to `./config/LocalSettings.php`, e.g.:
 
 ```php
