@@ -1,13 +1,20 @@
 # Canasta CLI
 The Canasta command line interface, written in Go.
 
-## Before starting
-Before running Canasta, and ideally before installing it, you should have both Docker Engine and Docker Compose installed. Installing both is generally fast and easy to do on common Linux distributions such as Debian, Ubuntu, Red Hat, and CentOS. By installing Docker Engine via `apt` or `yum`, you usually get Docker Compose along with it. See the following install guides for each OS:
+## Pre-requisites
+Before using the Canasta CLI, you must have both Docker Engine and Docker Compose installed.
 
-* [Debian](https://docs.docker.com/engine/install/debian/)
-* [Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-* [CentOS](https://docs.docker.com/engine/install/centos/)
-* More available at [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)
+### Windows and macOS
+Docker Compose is included in [Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows and macOS.
+
+### Linux ###
+Linux is the most-tested and preferred OS environment as the host for Canasta. Installing the requirements is fast and easy to do on common Linux distributions such as Debian, Ubuntu, Red Hat, and CentOS. While you can get up and running with all the Docker requirements by installing Docker Desktop on Linux, if you are using a 'server environment' (no GUI), the recommended way to install is to **uninstall** any distribution-specific software and [install Docker software using the Docker respositories](https://docs.docker.com/compose/install/linux/#install-using-the-repository). (The link is the install guide for Docker Compose which will also install the Docker Engine.)
+
+### Example ###
+Essentially, preparing your Linux server to be a Canasta host by installing the Docker suite of software includes something like 
+`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` once you've 
+added the Docker repositories to your system. A full example script for Ubuntu can be found at [prepare.sh](prepare.sh)
+
 
 ## Installation
 Then, run the following line to install the Canasta CLI:
@@ -172,3 +179,6 @@ Use "sudo canasta restic [command] --help" for more information about a command.
 sudo rm /usr/local/bin/canasta && sudo rm /etc/canasta/conf.json
 ```
 * Note: The argument "-i canastaId" is not necessary for any command when the command is run from the Canasta installation directory.
+
+
+[prepare.sh]: prepare.sh
