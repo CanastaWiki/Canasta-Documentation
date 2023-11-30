@@ -13,7 +13,7 @@ Linux is the most-tested and preferred OS environment as the host for Canasta. I
 ### Example ###
 Essentially, preparing your Linux server to be a Canasta host by installing the Docker suite of software includes something like 
 `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` once you've 
-added the Docker repositories to your system. A full example script for Ubuntu can be found at [prepare.sh](prepare.sh)
+added the Docker repositories to your system. A full example script for Ubuntu can be found at [example-prepare-ubuntu-headless.sh](example-prepare-ubuntu-headless.sh)
 
 
 ## Installation
