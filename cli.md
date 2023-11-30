@@ -17,7 +17,7 @@ added the Docker repositories to your system. A full example script for Ubuntu c
 
 
 ## Installation
-Then, run the following line to install the Canasta CLI:
+Then, run the following line to install the Canasta CLI (be sure you have write permissions in the current working directory):
 
 ```
 curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
