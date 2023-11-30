@@ -179,6 +179,3 @@ Use "sudo canasta restic [command] --help" for more information about a command.
 sudo rm /usr/local/bin/canasta && sudo rm /etc/canasta/conf.json
 ```
 * Note: The argument "-i canastaId" is not necessary for any command when the command is run from the Canasta installation directory.
-
-
-[prepare.sh]: prepare.sh
