@@ -184,4 +184,4 @@ Canasta is built on the following principles:
 - **Extensibility**. Canasta should support “after-market” customization of the Canasta image. Derivative images should be able to make any change they want to Canasta, including overriding its base functionality.
 - **Ready for source control**. Storing configuration on source control is an excellent DevOps practice for many reasons, including the ease of separating functionality from configuration and data. Canasta is built with this in mind. Simply follow Canasta’s “stack” repo structure and you’ll be able to place your Canasta config into source control.
 
-Canasta supports two orchestrators for managing the stack: Docker Compose and Kubernetes.
+Canasta supports two orchestrators for managing the stack: Docker Compose (V2) and Kubernetes.

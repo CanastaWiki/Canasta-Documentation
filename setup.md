@@ -33,7 +33,7 @@ The following covers the installation, and a few of the commands, of the Canasta
 For complete documentation on the CLI, visit the [CLI page](cli.md).
 
 ### Installation
-* Run the following line to install the Canasta CLI:
+* Run the following line to install the Canasta CLI (Be sure you have write permissions in the current working directory):
 
 ```
 curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
