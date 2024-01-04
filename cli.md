@@ -56,7 +56,7 @@ Use "sudo canasta [command] --help" for more information about a command.
 ## Create a new wiki
 * Run the following command to create a new Canasta installation with default configurations. This will create a folder named `canastaId` in the directory in which you're running this command.
 ```
-sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o docker-compose
+sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o compose
 ```
 * Visit your wiki at its URL; for the above command, it would be https://example.com. (if Canasta is installed locally or you did not specify any domain, it would be http://localhost.)
 * For more info on finishing up your installation, go to the [after installation](setup.md#after-installation) section.
