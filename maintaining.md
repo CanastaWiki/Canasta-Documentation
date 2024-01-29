@@ -6,5 +6,5 @@ Usually, you don't need to run maintenance scripts. `update.php` is always ran d
 However, in the case you do need to run them, you can use:
 
 ```bash
-sudo docker-compose exec web php /var/www/mediawiki/w/maintenance/SCRIPT_NAME.php
+sudo docker compose exec web php /var/www/mediawiki/w/maintenance/SCRIPT_NAME.php
 ```
