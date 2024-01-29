@@ -43,7 +43,7 @@ curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install
 ### Create a new wiki
 * Run the following command to create a new Canasta installation with default configurations.
 ```
-sudo canasta create -i canastaId -n example.com -w "Canasta Wiki" -a admin -o docker-compose
+sudo canasta create -i canastaId -n example.com -w "Canasta Wiki" -a admin -o compose
 ```
 * Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
 * For more info on finishing up your installation, visit [After Installation](#after-installation).
@@ -86,7 +86,7 @@ sudo canasta skin enable Vector -i canastaId
   * Database host: `db`
   * Database user: `root`
   * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section)
-* Navigate to the repo directory and run `docker-compose up -d`
+* Navigate to the repo directory and run `docker compose up -d`
 * Visit your wiki at its URL (or `https://localhost` if installed locally)
 * For more info on finishing up your installation, go to the "After installation" section.
 
@@ -94,7 +94,7 @@ sudo canasta skin enable Vector -i canastaId
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
 * If you need to use Canasta 1.2 instead of Canasta 1.3, do `git checkout 1.2.x`
 * Copy `.env.example` to `.env` and customize as needed (more details on how to configure it are in the [Configuration](#Configuration) section)
-* Navigate to the repo directory and run `docker-compose up -d`
+* Navigate to the repo directory and run `docker compose up -d`
 * Navigate to its URL (or `https://localhost` if installed locally) and run the MediaWiki setup wizard with the following info:
   * Database host: `db`
   * Database user: `root`
@@ -102,7 +102,7 @@ sudo canasta skin enable Vector -i canastaId
 * Place your new `LocalSettings.php` in the `config/` directory
   * We've already added a file in the `config/settings/` directory to enable the Vector skin by default, so your wiki will work right off the bat. But feel free to delete this if you are going to use another skin.
   * Be sure to add `wfLoadExtension( 'VisualEditor' );` for VisualEditor, etc. (More information about installing extensions can be found at the extensions setup page.)
-* Run `docker-compose down`, then `docker-compose up -d` (this is important because it initializes your `LocalSettings.php` for Canasta)
+* Run `docker compose down`, then `docker compose up -d` (this is important because it initializes your `LocalSettings.php` for Canasta)
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
 * For more info on finishing up your installation, go to the "After installation" section.
 
