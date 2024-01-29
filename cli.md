@@ -158,12 +158,12 @@ Use "sudo canasta restic [command] --help" for more information about a command.
 		"wiki1": {
 			"Id": "wiki1",
 			"Path": "/home/user/wiki1",
-			"Orchestrator": "docker-compose"
+			"Orchestrator": "compose"
 		},
 		"wiki2": {
 			"Id": "wiki2",
 			"Path": "/home/user/canasta/wiki2",
-			"Orchestrator": "docker-compose"
+			"Orchestrator": "compose"
 		}
 	}
 }
@@ -171,7 +171,7 @@ Use "sudo canasta restic [command] --help" for more information about a command.
 * Inside the object `Installations` there is the list of installations that the CLI currently manages.
 * "Id": It is the Canasta ID of the installation, specified during the installation.
 * "Path": This is the directory where the configuration files for the Canasta installation is stored.
-* "Orchestrator": This is the orchestrator which runs the Canasta instance. (Currently docker-compose is the only orchestrator supported by the CLI)
+* "Orchestrator": This is the orchestrator which runs the Canasta instance. (Currently Docker's `compose` plugin is the only orchestrator supported by the CLI)
 
 ## Uninstall
 * To uninstall the CLI, delete the binary file from the installation folder (default: /usr/local/bin/canasta)
