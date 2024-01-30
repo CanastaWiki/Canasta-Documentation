@@ -142,22 +142,18 @@ with a mysql dump. You can place `.sql` or `.gz` database dump there. This is op
 intended to be used for migrations only.
 
 ## Enabling extensions
-In `LocalSettings.php` you can add an extension by picking its name from our [list of bundled extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) and add a `wfLoadExtension`, e.g.:
+In `LocalSettings.php` you can add an extension by picking its name from the [list of bundled extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) and adding a `wfLoadExtension` call for it, e.g.:
 
 ```php
 wfLoadExtension( 'Cite' );
 ```
 
-As of Canasta 1.2.0, `cfLoadExtension` has been retired in favor of `wfLoadExtension`, which can now automatically detect and load an extension whether it's bundled or user-provided.
-
 ## Enabling skins
-In `LocalSettings.php` you can add a skin by picking its name from our [list of bundled skins](https://canasta.wiki/documentation/#skins-included-in-canasta) and add a `wfLoadSkin` call, e.g.:
+In `LocalSettings.php` you can add a skin by picking its name from the [list of bundled skins](https://canasta.wiki/documentation/#skins-included-in-canasta) and adding a `wfLoadSkin` call for it, e.g.:
 
 ```php
 wfLoadSkin( 'Timeless' );
 ```
-
-As of Canasta 1.2.0, `cfLoadSkin` has been retired in favor of a `wfLoadSkin`, which can now automatically detect and load a skin whether it's bundled or user-provided.
 
 ## Installing additional extensions
 To install a non-Canasta extension, simply place it in the `./extensions`
