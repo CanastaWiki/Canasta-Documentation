@@ -142,14 +142,14 @@ with a mysql dump. You can place `.sql` or `.gz` database dump there. This is op
 intended to be used for migrations only.
 
 ## Enabling extensions
-In `LocalSettings.php` you can add an extension by picking its name from the [list of bundled extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) and adding a `wfLoadExtension` call for it, e.g.:
+In `LocalSettings.php` you can add an extension by picking its name from the [list of bundled extensions](https://canasta.wiki/contents/#extensions-included-in-canasta) and adding a `wfLoadExtension` call for it, e.g.:
 
 ```php
 wfLoadExtension( 'Cite' );
 ```
 
 ## Enabling skins
-In `LocalSettings.php` you can add a skin by picking its name from the [list of bundled skins](https://canasta.wiki/documentation/#skins-included-in-canasta) and adding a `wfLoadSkin` call for it, e.g.:
+In `LocalSettings.php` you can add a skin by picking its name from the [list of bundled skins](https://canasta.wiki/contents/#skins-included-in-canasta) and adding a `wfLoadSkin` call for it, e.g.:
 
 ```php
 wfLoadSkin( 'Timeless' );
