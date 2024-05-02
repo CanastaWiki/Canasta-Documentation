@@ -30,30 +30,35 @@ This is the output of the Canasta CLI `help` printout:
 A CLI tool to create, import, start, stop and backup multiple Canasta installations
 
 Usage:
-  sudo canasta [command]
+  canasta [flags]
+  canasta [command]
 
 Available Commands:
-  list        List all Canasta installations
+  add         Add a new wiki to a Canasta instance
   create      Create a Canasta installation
+  delete      Delete a Canasta installation
+  extension   Manage Canasta extensions
+  help        Help about any command
   import      Import a wiki installation
+  list        List all Canasta installations
+  maintenance Use to run update and other maintenance scripts
+  remove      remove a new wiki from a Canasta instance
+  restart     Restart the Canasta installation
+  restic      Use restic to backup and restore Canasta
+  skin        Manage Canasta skins
   start       Start the Canasta installation
   stop        Shuts down the Canasta installation
-  restart     Restart the Canasta installation
-  skin        Manage Canasta skins
-  extension   Manage Canasta extensions
-  restic      Use restic to backup and restore Canasta
-  maintenance Use to run update and other maintenance scripts
-  delete      Delete a Canasta installation
-  help        Help about any command
+  upgrade     Upgrade a Canasta installation to the latest version
+  version     Show the Canasta version
 
 Flags:
-  -h, --help      help for Canasta
-  -v, --verbose   Verbose output
+  -d, --docker-path string   path to docker
+  -h, --help                 help for canasta
+  -v, --verbose              Verbose output
 
-
-Use "sudo canasta [command] --help" for more information about a command.
+Use "canasta [command] --help" for more information about a command.
 ```
-## Create a new wiki
+## Create a wiki
 * Run the following command to create a new Canasta installation with default configurations. This will create a folder named `canastaId` in the directory in which you're running this command.
 ```
 sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o compose
@@ -75,6 +80,22 @@ sudo canasta import -i importWikiId -d ./backup.sql.gz -e ./.env -l ./LocalSetti
 ```
 * Visit your wiki at its URL (or http://localhost if installed locally or if you did not specify any domain).
 * For more info on finishing up your installation, visit [after installation](setup.md#after-installation).
+
+## Create additional wikis (wiki farm)
+You can create additional wikis on the same server by calling `canasta create` to create additional Canasta instances, but the generally much better approach is to call `canasta add`, which adds additional wikis to the same Canasta instance, thus turning the installation into what is known as a "wiki farm". A typical call on a server with the domain `example.com` might look like:
+```
+sudo canasta create -i canastaId -w soccerwiki -u soccer.example.com -s "Soccer Wiki" -a admin
+```
+There are various other flags for `canasta add` (10 in all); an important additional one is `--database` or `-d`, which lets you specify an existing database dump, thus providing an equivalent call to `canasta import` for a wiki farm setup.
+
+There is no limit to how many wikis can be run within the same Canasta installation. As is typical for wiki farms, all wikis within the same installation will run on the same software, but using different databases and `images` directories.
+
+To view all wikis within any installation, call `canasta list`; it will list all Canasta installations on the server, a well as all wikis contained within each installation.
+
+To delete a specific wiki, but not the whole Canasta installation, call `canasta delete`; a typical call would look like:
+```
+sudo canasta remove -i canastaId -w soccerwiki
+```
 
 ## Enable/disable an extension
 * To list all [Canasta extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) that can be enabled or disabled with the CLI, run the following command:
