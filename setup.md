@@ -46,7 +46,6 @@ curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install
 sudo canasta create -i canastaId -n example.com -w "Canasta Wiki" -a admin -o compose
 ```
 * Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
-* For more info on finishing up your installation, visit [After Installation](#after-installation).
 
 ### Import an existing wiki
 * Place all the files mentioned below in the same directory for ease of use.
@@ -61,7 +60,6 @@ sudo canasta create -i canastaId -n example.com -w "Canasta Wiki" -a admin -o co
 sudo canasta import -i importWikiId -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php  
 ```
 * Visit your wiki at its URL (or http://localhost if installed locally or if you did not specify any domain).
-* For more info on finishing up your installation, visit [After Installation](#after-installation).
 
 ### Enable/disable an extension
 * To enable a Canasta extension, run the following command:
@@ -88,7 +86,6 @@ sudo canasta skin enable Vector -i canastaId
   * Database password: `mediawiki` (by default; see [Configuration](#Configuration) section)
 * Navigate to the repo directory and run `docker compose up -d`
 * Visit your wiki at its URL (or `https://localhost` if installed locally)
-* For more info on finishing up your installation, go to the "After installation" section.
 
 ### Create new wiki
 * Clone the stack repository from `https://github.com/CanastaWiki/Canasta-DockerCompose` and `cd` into that directory
@@ -104,17 +101,6 @@ sudo canasta skin enable Vector -i canastaId
   * Be sure to add `wfLoadExtension( 'VisualEditor' );` for VisualEditor, etc. (More information about installing extensions can be found at the extensions setup page.)
 * Run `docker compose down`, then `docker compose up -d` (this is important because it initializes your `LocalSettings.php` for Canasta)
 * Visit your wiki at its URL (or `http://localhost` if installed locally)
-* For more info on finishing up your installation, go to the "After installation" section.
-
-### After installation
-Once your wiki is installed, there are many customizations you can do:
-
-* Canasta contains around 10 skins and 150 extensions; it is easy to install any of these by adding the appropriate calls to wfLoadSkin() or wfLoadExtension(). See [Enabling skins](#enabling-skins) and [Enabling extensions](#enabling-extensions) for more information.
-* You can also install custom skins and extension fairly easily; see [Installing additional skins](#installing-additional-skins) and [Installing additional extensions](#installing-additional-extensions).
-* MediaWiki (and its extensions and skins) can be configured in all sorts of ways. MediaWiki alone has over 1,000 configuration settings; see [here](https://www.mediawiki.org/wiki/Special:MyLanguage/Category:MediaWiki_configuration_settings) for one listing of them.
-* All of the above changes can involve adding lines to `LocalSettings.php`; but note that, within Canasta specifically, you can also add configurations by adding settings files with any name - as long as they end in `.php` - to the `config/settings/` directory. (That is how the Canasta command-line `skin enable` and `extension enable` commands operate, for example.)
-* The directory `config/settings/` comes preloaded with one file: `CanastaFooterIcon.php`, which adds a "Powered by Canasta" icon to the bottom of every wiki page. If you want to remove this icon, you can simply delete this file.
-* If you are using Docker Compose, you can also make configurations to the overall environment by editing the file `docker-compose.override.yml`.
 
 ## Configuration
 Canasta relies on setting environment variables in the Docker container for controlling
@@ -140,6 +126,13 @@ volumed in as `/var/www/mediawiki/w/user-extensions`
 * `./_initdb` - persistent bind-mount which can be used to initialize the database container
 with a mysql dump. You can place `.sql` or `.gz` database dump there. This is optional and
 intended to be used for migrations only.
+
+The directory `config/settings/` comes preloaded with one file: `CanastaFooterIcon.php`, which adds a "Powered by Canasta" icon to the bottom of every wiki page. If you want to remove this icon, you can simply delete this file.
+
+If you are using Docker Compose, you can also make configurations to the overall environment by editing the file `docker-compose.override.yml`.
+
+Additionally, MediaWiki (and its extensions and skins) can be configured in all sorts of ways.
+MediaWiki alone has over 1,000 configuration settings; see [here](https://www.mediawiki.org/wiki/Special:MyLanguage/Category:MediaWiki_configuration_settings) for one listing of them.
 
 ## Enabling extensions
 In `LocalSettings.php` you can add an extension by picking its name from the [list of bundled extensions](https://canasta.wiki/contents/#extensions-included-in-canasta) and adding a `wfLoadExtension` call for it, e.g.:
