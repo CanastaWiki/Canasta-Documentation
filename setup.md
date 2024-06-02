@@ -134,19 +134,23 @@ If you are using Docker Compose, you can also make configurations to the overall
 Additionally, MediaWiki (and its extensions and skins) can be configured in all sorts of ways.
 MediaWiki alone has over 1,000 configuration settings; see [here](https://www.mediawiki.org/wiki/Special:MyLanguage/Category:MediaWiki_configuration_settings) for one listing of them.
 
-## Enabling extensions
+## Enabling/disabling extensions
 In `LocalSettings.php` you can add an extension by picking its name from the [list of bundled extensions](https://canasta.wiki/contents/#extensions-included-in-canasta) and adding a `wfLoadExtension` call for it, e.g.:
 
 ```php
 wfLoadExtension( 'Cite' );
 ```
 
-## Enabling skins
+You can also add such a call to any file in the `config/settings/` directory, to achieve the same result.
+
+## Enabling/disabling skins
 In `LocalSettings.php` you can add a skin by picking its name from the [list of bundled skins](https://canasta.wiki/contents/#skins-included-in-canasta) and adding a `wfLoadSkin` call for it, e.g.:
 
 ```php
 wfLoadSkin( 'Timeless' );
 ```
+
+You can also add such a call to any file in the `config/settings/` directory, to achieve the same result.
 
 ## Installing additional extensions
 To install a non-Canasta extension, simply place it in the `./extensions`
