@@ -112,6 +112,7 @@ these options by editing the `.env` file; see `.env.example` for details:
 (use it when installing the wiki via wizard)
 * `PHP_UPLOAD_MAX_FILESIZE` - php.ini upload max file size
 * `PHP_POST_MAX_SIZE` - php.ini post max size
+* `USE_EXTERNAL_DB` - specifies that the database to be used is not the MySQL one provided in Canasta, default is `false`
 
 You can add/modify extensions and skins using the following mount points:
 
