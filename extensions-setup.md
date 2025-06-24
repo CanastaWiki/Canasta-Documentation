@@ -85,4 +85,4 @@ sudo docker-compose down && sudo docker-compose up -d
 3. Done! Now, you can immediately use all of these extensions.
 
 ## 3. More extensions
-You can always install more extensions using the list provided at [canasta.wiki/documentation/#extensions-included-in-canasta](https://canasta.wiki/documentation/#extensions-included-in-canasta).
+You can always install more extensions using the list provided at <https://canasta.wiki/contents/#extensions-included-in-canasta>.
