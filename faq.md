@@ -1,13 +1,13 @@
 # Frequently asked questions
 
-## Why shouldn't we use the Canasta image's repo?
+## Why shouldn't we use the Canasta image repositories?
 
-The stack repo, regardless of which type you choose (Docker Compose, Kubernetes, etc.), will clone the appropriate Docker *image*, which is pre-built for your convenience and will be pulled when you first start up Canasta. The source code could technically be used to build the Docker image, but that is really not necessary; that would be like building your own binary from source code instead of just downloading the binary provided to you by the developers.
+Regardless of what stack you use (Docker Compose, Kubernetes, etc.), downloading Canasta will clone the appropriate Docker *images* (for CanastaBase and Canasta), which are pre-built, not the original code repositories. The source code for these Docker images could technically be used to build them locally, but there is no benefit to doing that - unless you are planning to do development on that code.
 
 ## Why does Canasta use Apache instead of Nginx?
 
-Canasta uses Apache because the Wikimedia Foundation uses Apache to run Wikipedia and its other projects. By sticking as close to the Wikimedia Foundation's technology stack as possible, we get the best chance at running MediaWiki without bugs and in a sustainably maintainable way.
+Canasta (really, CanastaBase) uses Apache because the Wikimedia Foundation uses Apache to run Wikipedia and its other projects. Sticking as close to the Wikimedia Foundation's technology stack as possible gives the best chance of running MediaWiki without bugs, now and in the future.
 
 ## Does Canasta have a version that uses Nginx instead of Apache?
 
-At the moment, the base Canasta image does not offer an Nginx flavor. However, anyone is welcome to make a derivative image of Canasta (instructions to do this are on another page) and replace Apache with Nginx as desired.
+At the moment, the CanastaBase image does not offer an Nginx flavor. However, anyone is welcome to make a derivative image of Canasta (instructions to do this are on another page) and replace Apache with Nginx as desired.
