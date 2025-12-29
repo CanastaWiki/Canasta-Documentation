@@ -107,7 +107,7 @@ restarts.
 Despite the fact that the Elasticsearch container is active by default, the wiki won't use it
 until you make the necessary configuration changes in `LocalSettings.php`. For more information
 about how to enable CirrusSearch, follow the initialization instructions in the
-[Extensions setup](extensions-setup) page.
+[Extensions setup](extensions-setup.md) page.
 
 ## Sitemap
 
