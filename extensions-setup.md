@@ -79,7 +79,7 @@ Note that this block of `wfLoadExtension`s doesn't include VisualEditor or Cirru
 2. Restart Canasta. This is necessary for login to work (since OATHAuth creates new database tables). Use this one-liner:
 
 ```bash
-sudo docker-compose down && sudo docker-compose up -d
+sudo docker compose down && sudo docker compose up -d
 ```
 
 3. Done! Now, you can immediately use all of these extensions.
