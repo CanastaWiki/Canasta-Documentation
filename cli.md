@@ -2,7 +2,7 @@
 
 The Canasta command line interface (CLI) is a tool written in Go for managing Canasta MediaWiki installations. It handles creation, import, backup, and management of multiple Canasta instances using Docker Compose as the orchestrator. A future Kubernetes orchestrator is planned to provide greater scalability and supporting tooling for managing and monitoring the cluster. The CLI supports both single wiki installations and wiki farms (multiple wikis in one installation).
 
-## Wiki Farms
+## Wiki farms
 
 A wiki farm allows you to run multiple wikis within the same Canasta installation. All wikis in a farm share the same MediaWiki software, but each wiki has its own database and image directory and can enable different extensions and skins.
 
@@ -15,7 +15,7 @@ With the Canasta CLI, you can:
 - **Manage extensions and skins** for specific wikis using the `-w` flag with the [extension](cli/maintenance.md#canasta-extension) and [skin](cli/maintenance.md#canasta-skin) commands
 - **Delete** a Canasta installation and all wikis that it hosts using the [delete](cli/wiki-management.md#canasta-delete) command
 
-### URL Schemes
+### URL schemes
 
 Wikis in a farm can be accessed using different URL schemes:
 
@@ -27,7 +27,7 @@ Subdomain-based routing requires that the subdomains are configured correctly in
 
 ---
 
-## Global Flags
+## Global flags
 
 ```
 Flags:
@@ -43,7 +43,7 @@ Most commands also accept these flags to identify a Canasta installation:
 
 If you run commands from within the Canasta installation directory, the `-i` flag is not required.
 
-## Getting Help
+## Getting help
 
 Use `canasta help` or `canasta --help` to see the list of available commands. For help with a specific command, use:
 
@@ -63,16 +63,16 @@ canasta create --help
 | Section | Description |
 |---------|-------------|
 | [Installation](cli/installation.md) | Pre-requisites, installing, and uninstalling the CLI |
-| [Wiki Management](cli/wiki-management.md) | Creating, importing, and managing wikis and wiki farms |
+| [Wiki management](cli/wiki-management.md) | Creating, importing, and managing wikis and wiki farms |
 | [Maintenance](cli/maintenance.md) | Extensions, skins, maintenance scripts, and lifecycle commands |
 | [Backup](cli/backup.md) | Backup and restore with restic |
 | [Canasta](cli/canasta.md) | Upgrade and version commands |
-| [Best Practices](cli/best-practices.md) | Security considerations and best practices |
+| [Best practices](cli/best-practices.md) | Security considerations and best practices |
 | [Troubleshooting](cli/troubleshooting.md) | Common issues and debugging |
 
 ---
 
-## Configuration Files
+## Configuration files
 
 Canasta installations have this structure:
 ```

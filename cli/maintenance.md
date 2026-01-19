@@ -1,4 +1,4 @@
-# Maintenance Commands
+# Maintenance commands
 
 This page documents the Canasta CLI commands for managing extensions, skins, running maintenance scripts, and controlling the Canasta installation lifecycle.
 

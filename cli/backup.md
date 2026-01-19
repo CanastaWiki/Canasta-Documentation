@@ -1,11 +1,11 @@
-# Backup and Restore with Restic
+# Backup and restore with restic
 
 Canasta includes integration with [restic](https://restic.net) for automated backups to AWS S3-compatible storage.
 
 ## Contents
 
 - [Setup](#setup)
-- [Common Flags](#common-flags)
+- [Common flags](#common-flags)
 - [canasta restic init](#canasta-restic-init) - Initialize a restic repository
 - [canasta restic take-snapshot](#canasta-restic-take-snapshot) - Create a backup snapshot
 - [canasta restic view](#canasta-restic-view) - View available snapshots
@@ -36,7 +36,7 @@ sudo canasta restic init -i mywiki
 
 ---
 
-## Common Flags
+## Common flags
 
 These flags apply to all restic subcommands:
 

@@ -12,7 +12,7 @@ This page covers common troubleshooting steps for Canasta installations.
 
 ---
 
-## Checking Container Status
+## Checking container status
 
 To see if your Canasta containers are running:
 ```bash
@@ -22,7 +22,7 @@ sudo docker compose ps
 
 ---
 
-## Viewing Container Logs
+## Viewing container oogs
 
 To view logs from the web container:
 ```bash
@@ -42,7 +42,7 @@ sudo docker compose logs
 
 ---
 
-## Accessing the Database
+## Accessing the database
 
 To connect to the MySQL database directly:
 ```bash
@@ -53,7 +53,7 @@ Enter the root database password from your `.env` file when prompted.
 
 ---
 
-## Running Commands Inside Containers
+## Running commands inside containers
 
 To run arbitrary commands inside the web container:
 ```bash
@@ -73,7 +73,7 @@ sudo docker compose exec web bash
 
 ---
 
-## Common Issues
+## Common issues
 
 **Installation fails with "Canasta installation with the ID already exists"**
 - An installation with that ID is already registered. Use `canasta list` to see existing installations, or choose a different ID.
