@@ -264,7 +264,7 @@ This displays all registered installations and wikis, showing:
 
 ---
 
-## Wiki Farm Example
+## Wiki farm example
 
 This example demonstrates creating a wiki farm with multiple wikis using different URL schemes.
 
