@@ -1,4 +1,4 @@
-# Wiki and Wiki Farm Management Commands
+# Wiki and wiki farm management commands
 
 This page documents the Canasta CLI commands for creating, importing, and managing wikis and wiki farms.
 
@@ -10,7 +10,7 @@ This page documents the Canasta CLI commands for creating, importing, and managi
 - [canasta remove](#canasta-remove) - Remove a wiki from a wiki farm
 - [canasta delete](#canasta-delete) - Delete an entire Canasta installation
 - [canasta list](#canasta-list) - List all Canasta installations
-- [Wiki Farm Example](#wiki-farm-example) - Complete workflow for creating a wiki farm
+- [Wiki farm example](#wiki-farm-example) - Complete workflow for creating a wiki farm
 
 ---
 
@@ -23,14 +23,14 @@ Create a new Canasta installation.
 canasta create [flags]
 ```
 
-**Required Flags:**
+**Required flags:**
 
 | Flag | Short | Description |
 |------|-------|-------------|
 | `--id` | `-i` | Canasta instance ID (must be alphanumeric with optional hyphens/underscores) |
 | `--admin` | `-a` | Initial wiki admin username |
 
-**Optional Flags:**
+**Optional flags:**
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
@@ -113,7 +113,7 @@ canasta import [flags]
 sudo canasta import -i importedwiki -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php
 ```
 
-**Before Importing:**
+**Before importing:**
 1. Create a `.env` file (see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example))
 2. Prepare your database dump (.sql or .sql.gz)
 3. Update your LocalSettings.php database configuration:
