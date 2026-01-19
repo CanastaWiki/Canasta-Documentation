@@ -28,9 +28,9 @@ $wgCirrusSearchServers = [ 'elasticsearch' ];
 2. Run the following from your Canasta stack directory (the one you downloaded from `Canasta-DockerCompose`):
 
 ```bash
-sudo docker-compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php \
-&& sudo docker-compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipLinks --indexOnSkip \
-&& sudo docker-compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipParse
+sudo docker compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php \
+&& sudo docker compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipLinks --indexOnSkip \
+&& sudo docker compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipParse
 ```
 
 This code initializes the Elasticsearch container to run CirrusSearch.
