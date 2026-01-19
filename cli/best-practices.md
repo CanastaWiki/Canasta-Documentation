@@ -1,0 +1,92 @@
+# Best Practices and Security
+
+This page covers security considerations and best practices for managing Canasta installations.
+
+## Contents
+
+- [Security Considerations](#security-considerations)
+  - [Password Storage](#password-storage)
+  - [Root Access](#root-access)
+  - [Network Exposure](#network-exposure)
+- [Best Practices](#best-practices)
+  - [Backups](#backups)
+  - [Before Upgrading](#before-upgrading)
+  - [Managing Multiple Installations](#managing-multiple-installations)
+- [Post-Installation Notes](#post-installation-notes)
+  - [Email Configuration](#email-configuration)
+  - [Wiki ID Naming Rules](#wiki-id-naming-rules)
+
+---
+
+## Security Considerations
+
+### Password Storage
+
+- **Admin passwords** are stored in plaintext files at `config/admin-password_{wikiid}`
+- **Database passwords** are stored in plaintext in the `.env` file
+- Ensure proper file permissions on the installation directory to restrict access to these files
+- Consider using environment variables when passing passwords on the command line to avoid exposing them in shell history:
+  ```bash
+  sudo canasta create -i mywiki -w main -a admin --rootdbpass "$ROOT_DB_PASS"
+  ```
+
+### Root Access
+
+The CLI requires root/sudo access for:
+- Docker operations
+- Writing to the configuration registry at `/etc/canasta/conf.json`
+- Managing container volumes and networks
+
+### Network Exposure
+
+- By default, Canasta exposes ports for HTTP/HTTPS traffic
+- Caddy handles SSL/TLS termination automatically
+- Review your `docker-compose.override.yml` if you need to customize port bindings or network settings
+
+---
+
+## Best Practices
+
+### Backups
+
+- Set up regular backups using `canasta restic` before making significant changes
+- Always take a backup before running `canasta upgrade`
+- Store restic passwords securely and separately from your server
+- Test your backup restoration process periodically
+
+### Before Upgrading
+
+1. Take a backup:
+   ```bash
+   sudo canasta restic take-snapshot -t "pre-upgrade-$(date +%Y%m%d)" -i mywiki
+   ```
+2. Review the Canasta release notes for any breaking changes
+3. Run the upgrade:
+   ```bash
+   sudo canasta upgrade -i mywiki
+   ```
+
+### Managing Multiple Installations
+
+- Use descriptive instance IDs that indicate the purpose (e.g., `company-wiki`, `docs-internal`)
+- Keep a record of which wikis are in each installation if using wiki farms
+- Use `canasta list` regularly to review your installations
+
+---
+
+## Post-Installation Notes
+
+### Email Configuration
+
+Email functionality is **not enabled by default**. To enable email for your wiki, you must configure the `$wgSMTP` setting in your LocalSettings.php. See the [MediaWiki SMTP documentation](https://www.mediawiki.org/wiki/Manual:$wgSMTP) for configuration options.
+
+### Wiki ID Naming Rules
+
+Wiki IDs must follow these rules:
+- Only alphanumeric characters, hyphens (`-`), and underscores (`_`) are allowed
+- Must start and end with an alphanumeric character
+- No spaces or special characters
+
+Valid examples: `mywiki`, `my-wiki`, `wiki_1`, `MyWiki2024`
+
+Invalid examples: `my wiki`, `-mywiki`, `wiki!`, `mywiki-`

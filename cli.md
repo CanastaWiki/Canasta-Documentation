@@ -1,202 +1,118 @@
 # Canasta CLI
-The Canasta command line interface, written in Go.
 
-## Pre-requisites
-Before using the Canasta CLI, you must have both Docker Engine and Docker Compose installed.
+The Canasta command line interface (CLI) is a tool written in Go for managing Canasta MediaWiki installations. It handles creation, import, backup, and management of multiple Canasta instances using Docker Compose as the orchestrator. A future Kubernetes orchestrator is planned to provide greater scalability and supporting tooling for managing and monitoring the cluster. The CLI supports both single wiki installations and wiki farms (multiple wikis in one installation).
 
-### Windows and macOS
-Docker Compose is included in [Docker Desktop](https://www.docker.com/products/docker-desktop) for Windows and macOS.
+## Wiki Farms
 
-### Linux ###
-Linux is the most-tested and preferred OS environment as the host for Canasta. Installing the requirements is fast and easy to do on common Linux distributions such as Debian, Ubuntu, Red Hat, and CentOS. While you can get up and running with all the Docker requirements by installing Docker Desktop on Linux, if you are using a 'server environment' (no GUI), the recommended way to install is to **uninstall** any distribution-specific software and [install Docker software using the Docker respositories](https://docs.docker.com/compose/install/linux/#install-using-the-repository). (The link is the install guide for Docker Compose which will also install the Docker Engine.)
+A wiki farm allows you to run multiple wikis within the same Canasta installation. All wikis in a farm share the same MediaWiki software, but each wiki has its own database and image directory and can enable different extensions and skins.
 
-### Example ###
-Essentially, preparing your Linux server to be a Canasta host by installing the Docker suite of software includes something like 
-`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin` once you've 
-added the Docker repositories to your system. A full example script for Ubuntu can be found at [example-prepare-ubuntu-headless.sh](example-prepare-ubuntu-headless.sh)
+With the Canasta CLI, you can:
 
+- **Create** a new Canasta installation with an initial wiki using the [create](cli/wiki-management.md#canasta-create) command
+- **Add** additional wikis to an existing installation using the [add](cli/wiki-management.md#canasta-add) command
+- **Remove** wikis from an installation using the [remove](cli/wiki-management.md#canasta-remove) command
+- **List** all installations and their wikis using the [list](cli/wiki-management.md#canasta-list) command
+- **Manage extensions and skins** for specific wikis using the `-w` flag with the [extension](cli/maintenance.md#canasta-extension) and [skin](cli/maintenance.md#canasta-skin) commands
+- **Delete** a Canasta installation and all wikis that it hosts using the [delete](cli/wiki-management.md#canasta-delete) command
 
-## Installation
-Then, run the following line to install the Canasta CLI (be sure you have write permissions in the current working directory):
+### URL Schemes
+
+Wikis in a farm can be accessed using different URL schemes:
+
+- **Path-based**: Multiple wikis share the same domain with different paths (e.g., `example.com`, `example.com/wiki2`, `example.com/docs`)
+- **Subdomain-based**: Each wiki uses a different subdomain (e.g., `wiki.example.com`, `docs.example.com`)
+- **Mixed**: A combination of paths and subdomains
+
+Subdomain-based routing requires that the subdomains are configured correctly in DNS to point to your Canasta server. Caddy handles SSL/HTTPS automatically for all configured domains. See the [canasta add](cli/wiki-management.md#canasta-add) command for examples of each URL scheme.
+
+---
+
+## Global Flags
 
 ```
-curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
-``` 
-
-## All available commands
-This is the output of the Canasta CLI `help` printout:
-
-```
-A CLI tool to create, import, start, stop and backup multiple Canasta installations
-
-Usage:
-  canasta [flags]
-  canasta [command]
-
-Available Commands:
-  add         Add a new wiki to a Canasta instance
-  create      Create a Canasta installation
-  delete      Delete a Canasta installation
-  extension   Manage Canasta extensions
-  help        Help about any command
-  import      Import a wiki installation
-  list        List all Canasta installations
-  maintenance Use to run update and other maintenance scripts
-  remove      remove a new wiki from a Canasta instance
-  restart     Restart the Canasta installation
-  restic      Use restic to backup and restore Canasta
-  skin        Manage Canasta skins
-  start       Start the Canasta installation
-  stop        Shuts down the Canasta installation
-  upgrade     Upgrade a Canasta installation to the latest version
-  version     Show the Canasta version
-
 Flags:
-  -d, --docker-path string   path to docker
-  -h, --help                 help for canasta
+  -d, --docker-path string   Path to docker compose binary
+  -h, --help                 Help for canasta
   -v, --verbose              Verbose output
-
-Use "canasta [command] --help" for more information about a command.
-```
-## Create a wiki
-* Run the following command to create a new Canasta installation with default configurations. This will create a folder named `canastaId` in the directory in which you're running this command.
-```
-sudo canasta create -i canastaId -n example.com -w Canasta Wiki -a admin -o compose
-```
-* Visit your wiki at its URL; for the above command, it would be https://example.com. (if Canasta is installed locally or you did not specify any domain, it would be http://localhost.)
-* For more info on finishing up your installation, go to the [after installation](setup.md#after-installation) section.
-
-## Import an existing wiki
-* Place all the files mentioned below in the same directory for ease of use.
-* Create a .env file and customize as needed (more details on how to configure it at [configuration](setup.md#configuration), and for an example see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example)).
-* Drop your database dump (in either a .sql or .sql.gz file).
-* Place your existing LocalSettings.php and change your database configuration to be the following:
-  * Database host: db
-  * Database user: root
-  * Database password: mediawiki (by default; see [Configuration](setup.md#configuration))
-* Then run the following command:
-```
-sudo canasta import -i importWikiId -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php  
-```
-* Visit your wiki at its URL (or http://localhost if installed locally or if you did not specify any domain).
-* For more info on finishing up your installation, visit [after installation](setup.md#after-installation).
-
-## Create additional wikis (wiki farm)
-You can create additional wikis on the same server by calling `canasta create` to create additional Canasta instances, but the generally much better approach is to call `canasta add`, which adds additional wikis to the same Canasta instance, thus turning the installation into what is known as a "wiki farm". A typical call on a server with the domain `example.com` might look like:
-```
-sudo canasta create -i canastaId -w soccerwiki -u soccer.example.com -s "Soccer Wiki" -a admin
-```
-There are various other flags for `canasta add` (10 in all); an important additional one is `--database` or `-d`, which lets you specify an existing database dump, thus providing an equivalent call to `canasta import` for a wiki farm setup.
-
-There is no limit to how many wikis can be run within the same Canasta installation. As is typical for wiki farms, all wikis within the same installation will run on the same software, but using different databases and `images` directories.
-
-To view all wikis within any installation, call `canasta list`; it will list all Canasta installations on the server, a well as all wikis contained within each installation.
-
-To delete a specific wiki, but not the whole Canasta installation, call `canasta delete`; a typical call would look like:
-```
-sudo canasta remove -i canastaId -w soccerwiki
 ```
 
-## Enable/disable an extension
-* To list all [Canasta extensions](https://canasta.wiki/documentation/#extensions-included-in-canasta) that can be enabled or disabled with the CLI, run the following command:
-```
-sudo canasta extension list -i canastaId
-```
-* To enable a Canasta extension, run the following command:
-```
-sudo canasta extension enable Bootstrap -i canastaId
-```
-* To disable a Canasta extension, run the following command:
-```
-sudo canasta extension disable VisualEditor -i canastaId
-```
-* To enable/disable multiple Canasta extensions, separate the extensions with a ',':
-```
-sudo canasta extension enable VisualEditor,PluggableAuth -i canastaId
-```
-* Note: The extension names are case-sensitive.
+Most commands also accept these flags to identify a Canasta installation:
 
+- `-i, --id`: Canasta instance ID (the name you gave when creating the installation)
+- `-p, --path`: Path to the Canasta installation directory
 
-## Enable/disable a skin
-* To list all [Canasta skins](https://canasta.wiki/documentation/#skins-included-in-canasta) that can be enabled or disabled with the CLI, run the following command:
-```
-sudo canasta skin list -i canastaId
-```
-* To enable a Canasta skin, run the following command:
-```
-sudo canasta skin enable Vector -i canastaId
-```
-* To disable a Canasta skin, run the following command:
-```
-sudo canasta skin disable Refreshed -i canastaId
-```
-* To enable/disable multiple Canasta extensions, separate the extensions with a ',':
-```
-sudo canasta skin enable CologneBlue,Modern -i canastaId
-```
-* Note: the skin names are case-sensitive.
+If you run commands from within the Canasta installation directory, the `-i` flag is not required.
 
-## Using restic
-[restic](https://restic.net) is a very useful utility for doing automated backups to a variety of different storage types; though Canasta's usage of restic is configured for using AWS S3-based repositories.
+## Getting Help
 
-Canasta makes use of restic's [dockerized binary](https://hub.docker.com/r/restic/restic).
+Use `canasta help` or `canasta --help` to see the list of available commands. For help with a specific command, use:
 
-### How to get started
-1. Add these environment variables to your Canasta installation's `.env` file. Follow the steps at [cli-configure-quickstart](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-creds-create) to obtain ACCESS_KEY_ID and SECRET_ACESS_KEY.
+```bash
+canasta [command] --help
 ```
-AWS_S3_API=s3.amazonaws.com
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_S3_BUCKET=
-RESTIC_PASSWORD=
-```
-2. When using restic for the first time in a Canasta installation, run the following command to initialize a restic repo in the AWS S3 bucket specified in the `.env` file:
-```
-sudo canata restic init -i canastaId
-```
-Now you should be able to use any of the available commands.
 
-### Available restic commands
-  ```
-  check         Check restic snapshots
-  diff          Show difference between two snapshots
-  forget        Forget restic snapshots
-  init          Initialize a restic repo
-  list          List files in a snapshost
-  restore       Restore restic snapshot
-  take-snapshot Take restic snapshots
-  unlock        Remove locks other processes created
-  view          View restic snapshots
-  ```
-Use "sudo canasta restic [command] --help" for more information about a command.
+For example:
+```bash
+canasta create --help
+```
+
+---
+
+## Documentation
+
+| Section | Description |
+|---------|-------------|
+| [Installation](cli/installation.md) | Pre-requisites, installing, and uninstalling the CLI |
+| [Wiki Management](cli/wiki-management.md) | Creating, importing, and managing wikis and wiki farms |
+| [Maintenance](cli/maintenance.md) | Extensions, skins, maintenance scripts, and lifecycle commands |
+| [Backup](cli/backup.md) | Backup and restore with restic |
+| [Canasta](cli/canasta.md) | Upgrade and version commands |
+| [Best Practices](cli/best-practices.md) | Security considerations and best practices |
+| [Troubleshooting](cli/troubleshooting.md) | Common issues and debugging |
+
+---
+
+## Configuration Files
+
+Canasta installations have this structure:
+```
+{installation-path}/
+  .env                           # Environment variables
+  docker-compose.yml             # Docker Compose configuration
+  docker-compose.override.yml    # Optional custom overrides
+  config/
+    wikis.yaml                   # Wiki farm configuration
+    Caddyfile                    # Generated reverse proxy config
+    SettingsTemplate.php         # Template for wiki settings
+    admin-password_{wiki-id}     # Generated admin password per wiki
+    {wiki-id}/
+      Settings.php               # Wiki-specific settings
+      LocalSettings.php          # Generated MediaWiki settings
+```
 
 ## /etc/canasta/conf.json
-* Canasta CLI maintains a list of installations that it manages. This information is stored at /etc/canasta/conf.json. Therefore the CLI would require permissions to read and write to the `/etc/canasta/` folder.
-* The layout of the `conf.json` file is as follows:
-```
+
+The CLI maintains a registry of installations in a `conf.json` file. The location depends on the operating system and whether running as root:
+
+- **Linux (root)**: `/etc/canasta/conf.json`
+- **Linux (non-root)**: `~/.config/canasta/conf.json`
+- **macOS**: `~/Library/Application Support/canasta/conf.json`
+
+Example structure:
+```json
 {
-	"Installations": {
-		"wiki1": {
-			"Id": "wiki1",
-			"Path": "/home/user/wiki1",
-			"Orchestrator": "compose"
-		},
-		"wiki2": {
-			"Id": "wiki2",
-			"Path": "/home/user/canasta/wiki2",
-			"Orchestrator": "compose"
-		}
-	}
+  "Orchestrators": {},
+  "Installations": {
+    "wiki1": {
+      "Id": "wiki1",
+      "Path": "/home/user/wiki1",
+      "Orchestrator": "compose"
+    },
+    "wiki2": {
+      "Id": "wiki2",
+      "Path": "/home/user/canasta/wiki2",
+      "Orchestrator": "compose"
+    }
+  }
 }
 ```
-* Inside the object `Installations` there is the list of installations that the CLI currently manages.
-* "Id": It is the Canasta ID of the installation, specified during the installation.
-* "Path": This is the directory where the configuration files for the Canasta installation is stored.
-* "Orchestrator": This is the orchestrator which runs the Canasta instance. (Currently Docker's `compose` plugin is the only orchestrator supported by the CLI)
-
-## Uninstall
-* To uninstall the CLI, delete the binary file from the installation folder (default: /usr/local/bin/canasta)
-```
-sudo rm /usr/local/bin/canasta && sudo rm /etc/canasta/conf.json
-```
-* Note: The argument "-i canastaId" is not necessary for any command when the command is run from the Canasta installation directory.
