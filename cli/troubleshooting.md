@@ -22,7 +22,7 @@ sudo docker compose ps
 
 ---
 
-## Viewing container oogs
+## Viewing container logs
 
 To view logs from the web container:
 ```bash
