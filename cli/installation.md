@@ -1,4 +1,4 @@
-# Canasta CLI Installation
+# Canasta CLI installation
 
 This page covers installing and uninstalling the Canasta command line interface (CLI).
 
