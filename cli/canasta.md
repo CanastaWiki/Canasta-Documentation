@@ -1,4 +1,4 @@
-# Canasta Commands
+# Canasta commands
 
 This page documents the Canasta CLI commands for upgrading and checking the version of Canasta.
 
