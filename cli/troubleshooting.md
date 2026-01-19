@@ -4,11 +4,11 @@ This page covers common troubleshooting steps for Canasta installations.
 
 ## Contents
 
-- [Checking Container Status](#checking-container-status)
-- [Viewing Container Logs](#viewing-container-logs)
-- [Accessing the Database](#accessing-the-database)
-- [Running Commands Inside Containers](#running-commands-inside-containers)
-- [Common Issues](#common-issues)
+- [Checking container status](#checking-container-status)
+- [Viewing container logs](#viewing-container-logs)
+- [Accessing the database](#accessing-the-database)
+- [Running commands inside containers](#running-commands-inside-containers)
+- [Common issues](#common-issues)
 
 ---
 
