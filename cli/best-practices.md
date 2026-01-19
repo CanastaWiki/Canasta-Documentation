@@ -1,4 +1,4 @@
-# Best Practices and Security
+# Best practices and security
 
 This page covers security considerations and best practices for managing Canasta installations.
 
@@ -18,9 +18,9 @@ This page covers security considerations and best practices for managing Canasta
 
 ---
 
-## Security Considerations
+## Security considerations
 
-### Password Storage
+### Password storage
 
 - **Admin passwords** are stored in plaintext files at `config/admin-password_{wikiid}`
 - **Database passwords** are stored in plaintext in the `.env` file
@@ -30,14 +30,14 @@ This page covers security considerations and best practices for managing Canasta
   sudo canasta create -i mywiki -w main -a admin --rootdbpass "$ROOT_DB_PASS"
   ```
 
-### Root Access
+### Root access
 
 The CLI requires root/sudo access for:
 - Docker operations
 - Writing to the configuration registry at `/etc/canasta/conf.json`
 - Managing container volumes and networks
 
-### Network Exposure
+### Network exposure
 
 - By default, Canasta exposes ports for HTTP/HTTPS traffic
 - Caddy handles SSL/TLS termination automatically
@@ -45,7 +45,7 @@ The CLI requires root/sudo access for:
 
 ---
 
-## Best Practices
+## Best practices
 
 ### Backups
 
@@ -54,7 +54,7 @@ The CLI requires root/sudo access for:
 - Store restic passwords securely and separately from your server
 - Test your backup restoration process periodically
 
-### Before Upgrading
+### Before upgrading
 
 1. Take a backup:
    ```bash
@@ -66,7 +66,7 @@ The CLI requires root/sudo access for:
    sudo canasta upgrade -i mywiki
    ```
 
-### Managing Multiple Installations
+### Managing multiple installations
 
 - Use descriptive instance IDs that indicate the purpose (e.g., `company-wiki`, `docs-internal`)
 - Keep a record of which wikis are in each installation if using wiki farms
@@ -74,13 +74,13 @@ The CLI requires root/sudo access for:
 
 ---
 
-## Post-Installation Notes
+## Post-installation notes
 
-### Email Configuration
+### Email configuration
 
 Email functionality is **not enabled by default**. To enable email for your wiki, you must configure the `$wgSMTP` setting in your LocalSettings.php. See the [MediaWiki SMTP documentation](https://www.mediawiki.org/wiki/Manual:$wgSMTP) for configuration options.
 
-### Wiki ID Naming Rules
+### Wiki ID naming rules
 
 Wiki IDs must follow these rules:
 - Only alphanumeric characters, hyphens (`-`), and underscores (`_`) are allowed
