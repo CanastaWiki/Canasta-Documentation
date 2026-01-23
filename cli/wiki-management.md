@@ -11,6 +11,7 @@ This page documents the Canasta CLI commands for creating, importing, and managi
 - [canasta delete](#canasta-delete) - Delete an entire Canasta installation
 - [canasta list](#canasta-list) - List all Canasta installations
 - [Wiki farm example](#wiki-farm-example) - Complete workflow for creating a wiki farm
+- [Running on non-standard ports](#running-on-non-standard-ports) - Configure custom HTTP/HTTPS ports
 
 ---
 
@@ -298,3 +299,26 @@ sudo canasta extension enable SemanticMediaWiki -i myfarm -w docs
 ```bash
 sudo canasta remove -i myfarm -w community
 ```
+
+---
+
+## Running on non-standard ports
+
+If you need to run on non-standard ports (e.g., to avoid conflicts with another installation), edit `.env`:
+
+```env
+HTTP_PORT=8080
+HTTPS_PORT=8443
+MW_SITE_SERVER=https://localhost:8443
+```
+
+**Important**: If using wiki farm mode (`config/wikis.yaml`), you must also include the port in the wiki URL:
+
+```yaml
+wikis:
+- id: wiki1
+  url: localhost:8443
+  name: wiki1
+```
+
+This is required because the wiki farm configuration uses the URL to match incoming requests and construct `$wgServer`.

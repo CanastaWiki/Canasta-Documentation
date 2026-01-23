@@ -15,7 +15,6 @@ Development mode enables live code editing and step debugging with Xdebug for Ca
 - [Triggering the debugger](#triggering-the-debugger)
   - [Browser debugging](#browser-debugging)
   - [CLI script debugging](#cli-script-debugging)
-- [Running on non-standard ports](#running-on-non-standard-ports)
 - [Directory structure](#directory-structure)
 - [Log locations](#log-locations)
 - [Accessing the database](#accessing-the-database)
@@ -213,29 +212,6 @@ To debug command-line scripts, set the `XDEBUG_TRIGGER` environment variable. Ru
 ```bash
 docker compose exec -e XDEBUG_TRIGGER=1 web php maintenance/run.php someScript
 ```
-
----
-
-## Running on non-standard ports
-
-If you need to run on non-standard ports (e.g., to avoid conflicts with another installation), edit `.env`:
-
-```env
-HTTP_PORT=8080
-HTTPS_PORT=8443
-MW_SITE_SERVER=https://localhost:8443
-```
-
-**Important**: If using wiki farm mode (`config/wikis.yaml`), you must also include the port in the wiki URL:
-
-```yaml
-wikis:
-- id: wiki1
-  url: localhost:8443
-  name: wiki1
-```
-
-This is required because the wiki farm configuration uses the URL to match incoming requests and construct `$wgServer`.
 
 ---
 
