@@ -65,6 +65,7 @@ canasta create --help
 | [Installation](cli/installation.md) | Pre-requisites, installing, and uninstalling the CLI |
 | [Wiki management](cli/wiki-management.md) | Creating, importing, and managing wikis and wiki farms |
 | [Maintenance](cli/maintenance.md) | Extensions, skins, maintenance scripts, and lifecycle commands |
+| [Development mode](cli/devmode.md) | Live code editing and Xdebug debugging for development |
 | [Backup](cli/backup.md) | Backup and restore with restic |
 | [Canasta](cli/canasta.md) | Upgrade and version commands |
 | [Best practices](cli/best-practices.md) | Security considerations and best practices |

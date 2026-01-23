@@ -47,6 +47,7 @@ canasta create [flags]
 | `--wikidbuser` | | `root` | Wiki database username |
 | `--wikidbpass` | | Auto-generated | Wiki database password |
 | `--envfile` | `-e` | | Path to .env file with password overrides |
+| `--dev` | `-D` | | Enable development mode with Xdebug (see [Development mode](devmode.md)). Optionally specify image tag (default: "latest") |
 
 **Examples:**
 
