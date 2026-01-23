@@ -304,15 +304,14 @@ sudo canasta remove -i myfarm -w community
 
 ## Running on non-standard ports
 
-If you need to run on non-standard ports (e.g., to avoid conflicts with another installation), edit `.env`:
+By default, Canasta uses ports 80 (HTTP) and 443 (HTTPS). If you need to run on different ports (e.g., to run multiple Canasta installations on the same server), you must pass an env file with the port settings using the `-e` flag and include the port in the domain name with `-n`.
+
+For an existing installation, edit `.env` to set the ports, update `config/wikis.yaml` to include the port in the URL, and restart:
 
 ```env
 HTTP_PORT=8080
 HTTPS_PORT=8443
-MW_SITE_SERVER=https://localhost:8443
 ```
-
-**Important**: If using wiki farm mode (`config/wikis.yaml`), you must also include the port in the wiki URL:
 
 ```yaml
 wikis:
@@ -321,7 +320,9 @@ wikis:
   name: wiki1
 ```
 
-This is required because the wiki farm configuration uses the URL to match incoming requests and construct `$wgServer`.
+```bash
+sudo canasta restart -i myinstance
+```
 
 ### Example: Two wiki farms on the same server
 
