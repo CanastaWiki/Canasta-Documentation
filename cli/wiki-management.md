@@ -322,3 +322,30 @@ wikis:
 ```
 
 This is required because the wiki farm configuration uses the URL to match incoming requests and construct `$wgServer`.
+
+### Example: Two wiki farms on the same server
+
+To run two separate Canasta installations on the same server, the second installation must use different ports.
+
+**1. Create the first wiki farm (uses default ports 80/443):**
+```bash
+sudo canasta create -i production -w mainwiki -n localhost -a admin
+sudo canasta add -i production -w docs -u localhost/docs -a admin
+```
+
+**2. Create an .env file for the second farm with non-standard ports:**
+
+Create a file called `staging.env`:
+```env
+HTTP_PORT=8080
+HTTPS_PORT=8443
+```
+
+**3. Create the second wiki farm using the custom .env file and port in domain name:**
+```bash
+sudo canasta create -i staging -w testwiki -n localhost:8443 -a admin -e staging.env
+```
+
+Now you can access:
+- First farm: `https://localhost` and `https://localhost/docs`
+- Second farm: `https://localhost:8443`
