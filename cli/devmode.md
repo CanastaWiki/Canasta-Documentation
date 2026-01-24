@@ -255,7 +255,7 @@ All commands should be run from the installation directory.
 | Log | Description | Command |
 |-----|-------------|---------|
 | Xdebug | Debug connection attempts | `docker compose exec web tail -f /var/log/mediawiki/php-xdebug.log` |
-| PHP-FPM | PHP errors and warnings | `docker compose exec web tail -f /var/log/mediawiki/php-fpm.log` |
+| PHP-FPM | PHP errors and warnings | `docker compose exec web tail -f /var/log/php8.1-fpm.log` |
 | MediaWiki debug | Application debug log | `docker compose exec web tail -f /var/log/mediawiki/debug.log` |
 
 **Note**: The MediaWiki debug log requires `$wgDebugLogFile = '/var/log/mediawiki/debug.log';` in your LocalSettings.php.
