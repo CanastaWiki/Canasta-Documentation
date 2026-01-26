@@ -48,7 +48,9 @@ canasta create [flags]
 | `--wikidbuser` | | `root` | Wiki database username |
 | `--wikidbpass` | | Auto-generated | Wiki database password |
 | `--envfile` | `-e` | | Path to .env file with password overrides |
-| `--dev` | `-D` | | Enable development mode with Xdebug (see [Development mode](devmode.md)). Optionally specify image tag (default: "latest") |
+| `--dev` | `-D` | `false` | Enable development mode with Xdebug (see [Development mode](devmode.md)) |
+| `--dev-tag` | | `latest` | Canasta image tag to use (e.g., latest, dev-branch) |
+| `--build-from` | | | Build Canasta image from local source directory (expects Canasta/, optionally CanastaBase/ and Canasta-DockerCompose/) |
 
 **Examples:**
 

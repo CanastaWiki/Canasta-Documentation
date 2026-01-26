@@ -6,6 +6,7 @@ Development mode enables live code editing and step debugging with Xdebug for Ca
 
 - [Features](#features)
 - [Creating a dev mode installation](#creating-a-dev-mode-installation)
+- [Building from local source](#building-from-local-source)
 - [Enabling dev mode on existing installations](#enabling-dev-mode-on-existing-installations)
 - [Disabling dev mode](#disabling-dev-mode)
 - [Verifying dev mode is working](#verifying-dev-mode-is-working)
@@ -40,12 +41,12 @@ Development mode enables live code editing and step debugging with Xdebug for Ca
 canasta create -i mydev -w mywiki -a admin --dev
 
 # Or specify a specific Canasta image tag
-canasta create -i mydev -w mywiki -a admin --dev dev-branch
+canasta create -i mydev -w mywiki -a admin --dev --dev-tag dev-branch
 ```
 
-The `--dev` flag accepts an optional image tag:
-- `--dev` or `-D` — Uses the `latest` image (default)
-- `--dev dev-branch` or `-D dev-branch` — Uses the specified image tag
+The `--dev` flag enables development mode with Xdebug. Use `--dev-tag` to specify which Canasta image tag to use:
+- Without `--dev-tag` — Uses the `latest` image (default)
+- `--dev-tag dev-branch` — Uses the specified image tag
 
 This will:
 1. Clone the Canasta stack
@@ -58,6 +59,38 @@ This will:
 
 - `latest` - Latest stable release (default)
 - Any tag from [ghcr.io/canastawiki/canasta](https://github.com/CanastaWiki/Canasta/pkgs/container/canasta)
+
+---
+
+## Building from local source
+
+For testing changes to Canasta or CanastaBase before they're published, you can build from local source repositories:
+
+```bash
+canasta create -i mydev -w mywiki -a admin --build-from ~/canasta-repos
+```
+
+The `--build-from` flag expects a directory containing:
+- `Canasta/` — Required. The Canasta repository with a Dockerfile. Fails if not found.
+- `CanastaBase/` — Optional. If present, CanastaBase is built first and used as the base image for Canasta. If not found, uses the published CanastaBase image.
+- `Canasta-DockerCompose/` — Optional. If present, the docker-compose stack files are copied from here instead of cloning from GitHub.
+
+This will:
+1. Build CanastaBase locally (if the directory exists) → `canasta-base:local`
+2. Build Canasta using the local or published base image → `canasta:local`
+3. Copy docker-compose files from local Canasta-DockerCompose (if exists) or clone from GitHub
+4. Extract MediaWiki code from the locally built image
+5. Continue with normal installation
+
+### Combining with dev mode
+
+You can combine `--build-from` with `--dev` to build from source and enable Xdebug:
+
+```bash
+canasta create -i mydev -w mywiki -a admin --dev --build-from ~/canasta-repos
+```
+
+**Note:** `--dev-tag` and `--build-from` are mutually exclusive since `--build-from` builds its own image.
 
 ---
 
@@ -79,14 +112,7 @@ This will:
 
 **Note:** If `mediawiki-code/` already exists, it will NOT be overwritten. You'll see a warning message. To regenerate the code, delete the directory first and then restart with `--dev`.
 
-### Specifying image tag
-
-Use `--dev-tag` to specify a Canasta image tag when enabling dev mode:
-
-```bash
-canasta start -i myinstance --dev --dev-tag dev-branch
-canasta restart -i myinstance --dev --dev-tag 1.39
-```
+**Note:** When enabling dev mode on an existing installation, the default `latest` image tag is used. To use a specific image tag, recreate the installation with `canasta create --dev --dev-tag <tag>`.
 
 ---
 
@@ -110,7 +136,7 @@ After creating a dev mode installation, verify the setup by running these comman
    ```bash
    docker compose ps
    ```
-   The web service should show `canasta-xdebug:latest` (or your specified tag) as the image.
+   The web service should show `canasta-xdebug:local` as the image.
 
 2. **Verify code mounting works**:
    ```bash
@@ -221,7 +247,7 @@ After creating a dev mode installation:
 
 ```
 installation/
-├── .env                      # Environment variables (includes CANASTA_IMAGE_TAG)
+├── .env                      # Environment variables (includes CANASTA_IMAGE)
 ├── .vscode/
 │   └── launch.json           # VSCode debug configuration
 ├── .idea/
@@ -307,16 +333,17 @@ If you see "Cannot bind file" errors, your path mappings are incorrect. Ensure:
 
 The extracted `mediawiki-code/` is a snapshot from when dev mode was enabled. To update:
 
-1. **To get the latest Canasta code**: Delete `mediawiki-code/` and restart with `--dev`:
+1. **To get the latest Canasta code**: Delete `mediawiki-code/` and recreate with dev mode:
    ```bash
    rm -rf mediawiki-code/
-   canasta restart -i myinstance --dev
+   canasta delete -i myinstance
+   canasta create -i myinstance -w mywiki -a admin --dev
    ```
 
-2. **To use a different image tag**: Delete `mediawiki-code/`, then specify the new tag:
+2. **To use a different image tag**: Recreate with the new tag:
    ```bash
-   rm -rf mediawiki-code/
-   canasta restart -i myinstance --dev --dev-tag newtag
+   canasta delete -i myinstance
+   canasta create -i myinstance -w mywiki -a admin --dev --dev-tag newtag
    ```
 
 **Note**: Your local edits in `mediawiki-code/` will be lost when regenerating. Consider committing changes to a git repository before regenerating.
@@ -346,9 +373,13 @@ canasta create [flags]
 
 | Flag | Short | Description |
 |------|-------|-------------|
-| `--dev` | `-D` | Enable development mode with Xdebug. Optionally specify image tag (default: "latest") |
+| `--dev` | `-D` | Enable development mode with Xdebug |
+| `--dev-tag` | | Canasta image tag to use (default: "latest") |
+| `--build-from` | | Build Canasta image from local source directory (expects Canasta/, optionally CanastaBase/) |
 
 See [canasta create](wiki-management.md#canasta-create) for all flags.
+
+**Note:** `--dev-tag` and `--build-from` are mutually exclusive.
 
 ### Start command
 
@@ -360,7 +391,6 @@ canasta start [flags]
 |------|-------|-------------|
 | `--dev` | `-D` | Start in development mode with Xdebug |
 | `--no-dev` | | Start without development mode (disable dev mode) |
-| `--dev-tag` | | Canasta image tag to use for dev mode (default: "latest") |
 | `--id` | `-i` | Canasta instance ID |
 | `--path` | `-p` | Canasta installation directory |
 
@@ -374,7 +404,6 @@ canasta restart [flags]
 |------|-------|-------------|
 | `--dev` | `-D` | Restart in development mode with Xdebug |
 | `--no-dev` | | Restart without development mode (disable dev mode) |
-| `--dev-tag` | | Canasta image tag to use for dev mode (default: "latest") |
 | `--id` | `-i` | Canasta instance ID |
 | `--path` | `-p` | Canasta installation directory |
 
