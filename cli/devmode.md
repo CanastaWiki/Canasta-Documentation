@@ -405,7 +405,7 @@ If you see "Cannot bind file" errors, your path mappings are incorrect. Ensure:
 
 ## Updating MediaWiki code
 
-The extracted `mediawiki-code/` is a snapshot from when dev mode was enabled. To update to a newer Canasta image:
+The extracted `mediawiki-code/` is a snapshot from when dev mode was enabled. To re-extract the code from the Canasta container:
 
 ```bash
 # Stop the instance
