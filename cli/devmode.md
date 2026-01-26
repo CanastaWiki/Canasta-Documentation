@@ -405,22 +405,22 @@ If you see "Cannot bind file" errors, your path mappings are incorrect. Ensure:
 
 ## Updating MediaWiki code
 
-The extracted `mediawiki-code/` is a snapshot from when dev mode was enabled. To update:
+The extracted `mediawiki-code/` is a snapshot from when dev mode was enabled. To update to a newer Canasta image:
 
-1. **To get the latest Canasta code**: Delete `mediawiki-code/` and recreate with dev mode:
-   ```bash
-   rm -rf mediawiki-code/
-   canasta delete -i myinstance
-   canasta create -i myinstance -w mywiki -a admin --dev
-   ```
+```bash
+# Stop the instance
+canasta stop -i myinstance
 
-2. **To use a different image tag**: Recreate with the new tag:
-   ```bash
-   canasta delete -i myinstance
-   canasta create -i myinstance -w mywiki -a admin --dev --dev-tag newtag
-   ```
+# Remove the extracted code
+rm -rf mediawiki-code/
 
-**Note**: Your local edits in `mediawiki-code/` will be lost when regenerating. Consider committing changes to a git repository before regenerating.
+# Restart in dev mode (this will re-extract the code)
+canasta restart -i myinstance --dev
+```
+
+This preserves your wikis, configuration, and database while updating the MediaWiki code.
+
+**Note**: Your local edits in `mediawiki-code/` will be lost when regenerating. Consider committing changes to a git repository before regenerating. User extensions in `extensions/` are preserved.
 
 ---
 
