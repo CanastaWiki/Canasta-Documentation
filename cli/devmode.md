@@ -265,12 +265,86 @@ installation/
 ├── docker-compose.override.yml
 ├── docker-compose.dev.yml    # Dev mode compose overlay
 ├── Dockerfile.xdebug         # Builds xdebug-enabled image
+├── extensions/               # Symlink → mediawiki-code/user-extensions/ (in dev mode)
+├── skins/                    # Symlink → mediawiki-code/user-skins/ (in dev mode)
 └── mediawiki-code/           # Extracted MediaWiki code (mounted to /var/www/mediawiki/w)
     ├── index.php
-    ├── extensions/
-    ├── skins/
+    ├── canasta-extensions/   # Bundled extension source code
+    ├── canasta-skins/        # Bundled skin source code
+    ├── extensions/           # Symlinks to canasta-extensions/* and user-extensions/*
+    ├── skins/                # Symlinks to canasta-skins/* and user-skins/*
+    ├── user-extensions/      # User extensions (real directory, same content as extensions/)
+    ├── user-skins/           # User skins (real directory, same content as skins/)
     └── ...
 ```
+
+### How extension symlinks work
+
+The extracted code preserves the container's symlink structure. The `mediawiki-code/extensions/` directory contains relative symlinks like:
+
+- `VisualEditor` → `../canasta-extensions/VisualEditor` (bundled extension)
+- `MyExtension` → `../user-extensions/MyExtension` (user extension)
+
+In dev mode, the CLI consolidates user extensions into `mediawiki-code/`:
+1. Copies any existing extensions from `extensions/` to `mediawiki-code/user-extensions/`
+2. Replaces `extensions/` with a symlink to `mediawiki-code/user-extensions/`
+3. Same for `skins/` → `mediawiki-code/user-skins/`
+
+This ensures:
+- Symlinks in `mediawiki-code/extensions/` resolve identically on host and container
+- Simple IDE path mapping: `mediawiki-code/` ↔ `/var/www/mediawiki/w/`
+- Breakpoints work in both bundled and user extensions
+
+---
+
+## Editing user extensions (best practices)
+
+In dev mode, `extensions/` is a symlink to `mediawiki-code/user-extensions/`. This means **both paths point to the same files**:
+
+```
+extensions/MyExtension/          ← Same files
+mediawiki-code/user-extensions/MyExtension/  ← Same files
+```
+
+### Where to edit
+
+You can edit user extension files in **either location** — they're the same directory:
+
+| Path | Description |
+|------|-------------|
+| `extensions/MyExtension/` | Convenient if you're used to non-dev mode |
+| `mediawiki-code/user-extensions/MyExtension/` | Shows the true location in dev mode |
+
+### Setting breakpoints
+
+For IDE path mapping to work correctly, set breakpoints in files under `mediawiki-code/`:
+- `mediawiki-code/user-extensions/MyExtension/includes/MyHooks.php` ✓
+- `mediawiki-code/extensions/MyExtension/` (symlink path also works)
+
+### Adding new extensions
+
+1. Copy your extension to `extensions/` (or `mediawiki-code/user-extensions/`)
+2. Restart the container: `canasta restart -i myinstance`
+3. The container's `create-symlinks.sh` creates `mediawiki-code/extensions/MyExtension → ../user-extensions/MyExtension`
+4. Enable the extension in LocalSettings.php
+
+### When dev mode is disabled
+
+When you disable dev mode (`canasta restart --no-dev`), the CLI:
+1. Removes the `extensions/` symlink
+2. Copies content from `mediawiki-code/user-extensions/` back to a real `extensions/` directory
+3. Leaves `mediawiki-code/` in place (not volumed in, but available for reference)
+
+Your user extensions are preserved in both modes.
+
+### When dev mode is re-enabled
+
+When you re-enable dev mode (`canasta restart --dev`) after having disabled it:
+1. Extensions in `extensions/` **take precedence** over `mediawiki-code/user-extensions/`
+2. Any changes made to `extensions/` while in non-dev mode are synced to `mediawiki-code/user-extensions/`
+3. The `extensions/` directory becomes a symlink again
+
+**Best practice:** Always edit user extensions in `extensions/` regardless of mode. This ensures your changes are preserved when switching between dev and non-dev modes.
 
 ---
 
