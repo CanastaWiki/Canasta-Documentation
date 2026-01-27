@@ -11,6 +11,7 @@ This page documents the Canasta CLI commands for creating, importing, and managi
 - [canasta delete](#canasta-delete) - Delete an entire Canasta installation
 - [canasta list](#canasta-list) - List all Canasta installations
 - [Wiki farm example](#wiki-farm-example) - Complete workflow for creating a wiki farm
+- [Running on non-standard ports](#running-on-non-standard-ports) - Configure custom HTTP/HTTPS ports
 
 ---
 
@@ -47,6 +48,9 @@ canasta create [flags]
 | `--wikidbuser` | | `root` | Wiki database username |
 | `--wikidbpass` | | Auto-generated | Wiki database password |
 | `--envfile` | `-e` | | Path to .env file with password overrides |
+| `--dev` | `-D` | `false` | Enable development mode with Xdebug (see [Development mode](devmode.md)) |
+| `--dev-tag` | | `latest` | Canasta image tag to use (e.g., latest, dev-branch) |
+| `--build-from` | | | Build Canasta image from local source directory (expects Canasta/, optionally CanastaBase/ and Canasta-DockerCompose/) |
 
 **Examples:**
 
@@ -297,3 +301,54 @@ sudo canasta extension enable SemanticMediaWiki -i myfarm -w docs
 ```bash
 sudo canasta remove -i myfarm -w community
 ```
+
+---
+
+## Running on non-standard ports
+
+By default, Canasta uses ports 80 (HTTP) and 443 (HTTPS). If you need to run on different ports (e.g., to run multiple Canasta installations on the same server), you must pass an env file with the port settings using the `-e` flag and include the port in the domain name with `-n`.
+
+For an existing installation, edit `.env` to set the ports, update `config/wikis.yaml` to include the port in the URL, and restart:
+
+```env
+HTTP_PORT=8080
+HTTPS_PORT=8443
+```
+
+```yaml
+wikis:
+- id: wiki1
+  url: localhost:8443
+  name: wiki1
+```
+
+```bash
+sudo canasta restart -i myinstance
+```
+
+### Example: Two wiki farms on the same server
+
+To run two separate Canasta installations on the same server, the second installation must use different ports.
+
+**1. Create the first wiki farm (uses default ports 80/443):**
+```bash
+sudo canasta create -i production -w mainwiki -n localhost -a admin
+sudo canasta add -i production -w docs -u localhost/docs -a admin
+```
+
+**2. Create an .env file for the second farm with non-standard ports:**
+
+Create a file called `staging.env`:
+```env
+HTTP_PORT=8080
+HTTPS_PORT=8443
+```
+
+**3. Create the second wiki farm using the custom .env file and port in domain name:**
+```bash
+sudo canasta create -i staging -w testwiki -n localhost:8443 -a admin -e staging.env
+```
+
+Now you can access:
+- First farm: `https://localhost` and `https://localhost/docs`
+- Second farm: `https://localhost:8443`
