@@ -43,7 +43,6 @@ These flags apply to all restic subcommands:
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
 | `--verbose` | `-v` | `false` | Verbose output |
 
 ---

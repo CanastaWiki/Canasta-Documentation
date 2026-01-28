@@ -149,8 +149,6 @@ canasta add [flags]
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
-| `--orchestrator` | `-o` | `compose` | Orchestrator to use |
 | `--site-name` | `-t` | Wiki ID | Display name of the wiki |
 | `--database` | `-d` | | Path to existing database dump |
 | `--password` | `-s` | Auto-generated | Admin password for the new wiki |
@@ -196,7 +194,6 @@ canasta remove [flags]
 |------|-------|---------|-------------|
 | `--wiki` | `-w` | | ID of the wiki to remove (required) |
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
 
 **Example:**
 
@@ -222,7 +219,6 @@ canasta delete [flags]
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
 
 **Example:**
 

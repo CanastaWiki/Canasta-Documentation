@@ -466,7 +466,6 @@ canasta start [flags]
 | `--dev` | `-D` | Start in development mode with Xdebug |
 | `--no-dev` | | Start without development mode (disable dev mode) |
 | `--id` | `-i` | Canasta instance ID |
-| `--path` | `-p` | Canasta installation directory |
 
 ### Restart command
 
@@ -479,6 +478,5 @@ canasta restart [flags]
 | `--dev` | `-D` | Restart in development mode with Xdebug |
 | `--no-dev` | | Restart without development mode (disable dev mode) |
 | `--id` | `-i` | Canasta instance ID |
-| `--path` | `-p` | Canasta installation directory |
 
 **Note:** You cannot specify both `--dev` and `--no-dev` at the same time.
