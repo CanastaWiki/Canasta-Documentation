@@ -10,6 +10,8 @@ With the Canasta CLI, you can:
 
 - **Create** a new Canasta installation with an initial wiki using the [create](cli/wiki-management.md#canasta-create) command
 - **Add** additional wikis to an existing installation using the [add](cli/wiki-management.md#canasta-add) command
+- **Dump** a wiki database using the [dump](cli/wiki-management.md#canasta-dump) command
+- **Refresh** a wiki by re-importing a database using the [refresh](cli/wiki-management.md#canasta-refresh) command
 - **Remove** wikis from an installation using the [remove](cli/wiki-management.md#canasta-remove) command
 - **List** all installations and their wikis using the [list](cli/wiki-management.md#canasta-list) command
 - **Manage extensions and skins** for specific wikis using the `-w` flag with the [extension](cli/maintenance.md#canasta-extension) and [skin](cli/maintenance.md#canasta-skin) commands
@@ -57,7 +59,7 @@ canasta create --help
 | Section | Description |
 |---------|-------------|
 | [Installation](cli/installation.md) | Pre-requisites, installing, and uninstalling the CLI |
-| [Wiki management](cli/wiki-management.md) | Creating, importing, and managing wikis and wiki farms |
+| [Wiki management](cli/wiki-management.md) | Creating, managing, dumping, and refreshing wikis and wiki farms |
 | [Maintenance](cli/maintenance.md) | Extensions, skins, maintenance scripts, and lifecycle commands |
 | [Development mode](cli/devmode.md) | Live code editing and Xdebug debugging for development |
 | [Backup](cli/backup.md) | Backup and restore with restic |

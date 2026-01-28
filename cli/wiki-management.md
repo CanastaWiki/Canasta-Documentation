@@ -1,12 +1,13 @@
 # Wiki and wiki farm management commands
 
-This page documents the Canasta CLI commands for creating, importing, and managing wikis and wiki farms.
+This page documents the Canasta CLI commands for creating and managing wikis and wiki farms.
 
 ## Contents
 
 - [canasta create](#canasta-create) - Create a new Canasta installation
-- [canasta import](#canasta-import) - Import an existing MediaWiki installation
 - [canasta add](#canasta-add) - Add a wiki to a wiki farm
+- [canasta dump](#canasta-dump) - Dump a wiki database
+- [canasta refresh](#canasta-refresh) - Re-import a database into an existing wiki
 - [canasta remove](#canasta-remove) - Remove a wiki from a wiki farm
 - [canasta delete](#canasta-delete) - Delete an entire Canasta installation
 - [canasta list](#canasta-list) - List all Canasta installations
@@ -29,7 +30,7 @@ canasta create [flags]
 | Flag | Short | Description |
 |------|-------|-------------|
 | `--id` | `-i` | Canasta instance ID (must be alphanumeric with optional hyphens/underscores) |
-| `--admin` | `-a` | Initial wiki admin username |
+| `--admin` | `-a` | Initial wiki admin username (required unless `--database` is provided) |
 
 **Optional flags:**
 
@@ -48,6 +49,9 @@ canasta create [flags]
 | `--wikidbuser` | | `root` | Wiki database username |
 | `--wikidbpass` | | Auto-generated | Wiki database password |
 | `--envfile` | `-e` | | Path to .env file with password overrides |
+| `--database` | `-d` | | Path to existing database dump (.sql or .sql.gz) to import instead of running install.php |
+| `--wiki-settings` | `-l` | | Path to per-wiki Settings.php to use instead of SettingsTemplate.php (only used with `--database`) |
+| `--global-settings` | `-g` | | Path to global settings file to copy to config/settings/ (filename preserved) |
 | `--dev` | `-D` | `false` | Enable development mode with Xdebug (see [Development mode](devmode.md)) |
 | `--dev-tag` | | `latest` | Canasta image tag to use (e.g., latest, dev-branch) |
 | `--build-from` | | | Build Canasta image from local source directory (expects Canasta/, optionally CanastaBase/ and Canasta-DockerCompose/) |
@@ -75,55 +79,22 @@ Create with a custom wikis.yaml file:
 sudo canasta create -i mywiki -a admin -f ./my-wikis.yaml
 ```
 
+Create by importing an existing database:
+```bash
+sudo canasta create -i mywiki -w main -n example.com -d ./backup.sql.gz
+```
+
+Create by importing with a custom Settings.php:
+```bash
+sudo canasta create -i mywiki -w main -n example.com -d ./backup.sql.gz -l ./MySettings.php
+```
+
 **Notes:**
+- If `--database` is provided, the wiki is created by importing the database dump instead of running install.php. In this case, `--admin` is not required.
 - If passwords are not provided, they are auto-generated and saved to the config directory
 - Admin password is saved to `config/admin-password_{wikiid}`
 - Database passwords are saved to the `.env` file
 - After installation, visit your wiki at its URL (e.g., https://example.com or http://localhost)
-
----
-
-## canasta import
-
-Import an existing MediaWiki installation into Canasta.
-
-**Usage:**
-```
-canasta import [flags]
-```
-
-**Required Flags:**
-
-| Flag | Short | Description |
-|------|-------|-------------|
-| `--id` | `-i` | Canasta instance ID |
-
-**Optional Flags:**
-
-| Flag | Short | Default | Description |
-|------|-------|---------|-------------|
-| `--path` | `-p` | Current directory | Directory for the installation |
-| `--orchestrator` | `-o` | `compose` | Orchestrator to use |
-| `--domain-name` | `-n` | `localhost` | Domain name |
-| `--database` | `-d` | | Path to database dump (.sql or .sql.gz) |
-| `--localsettings` | `-l` | | Path to existing LocalSettings.php |
-| `--env` | `-e` | | Path to existing .env file |
-| `--override` | `-r` | | File to copy as docker-compose.override.yml |
-| `--keep-config` | `-k` | `false` | Keep config files on failure |
-
-**Example:**
-
-```bash
-sudo canasta import -i importedwiki -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php
-```
-
-**Before importing:**
-1. Create a `.env` file (see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example))
-2. Prepare your database dump (.sql or .sql.gz)
-3. Update your LocalSettings.php database configuration:
-   - Database host: `db`
-   - Database user: `root`
-   - Database password: Use the password from your `.env` file
 
 ---
 
@@ -143,14 +114,15 @@ canasta add [flags]
 | `--wiki` | `-w` | ID of the new wiki |
 | `--url` | `-u` | URL of the new wiki (domain/path format, e.g., 'localhost/wiki2') |
 | `--id` | `-i` | Canasta instance ID |
-| `--admin` | `-a` | Admin username for the new wiki |
+| `--admin` | `-a` | Admin username for the new wiki (required unless `--database` is provided) |
 
 **Optional Flags:**
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--site-name` | `-t` | Wiki ID | Display name of the wiki |
-| `--database` | `-d` | | Path to existing database dump |
+| `--database` | `-d` | | Path to existing database dump (.sql or .sql.gz) to import instead of running install.php |
+| `--wiki-settings` | `-l` | | Path to per-wiki Settings.php to use instead of SettingsTemplate.php (only used with `--database`) |
 | `--password` | `-s` | Auto-generated | Admin password for the new wiki |
 | `--wikidbuser` | | `root` | Wiki database username |
 
@@ -166,9 +138,14 @@ Add a wiki at a path:
 sudo canasta add -i mywiki -w docs -u example.com/docs -t "Documentation Wiki" -a admin
 ```
 
-Import an existing wiki database:
+Add a wiki by importing an existing database:
 ```bash
-sudo canasta add -i mywiki -w imported -u example.com/imported -a admin -d ./backup.sql.gz
+sudo canasta add -i mywiki -w imported -u example.com/imported -d ./backup.sql.gz
+```
+
+Add a wiki by importing with a custom Settings.php:
+```bash
+sudo canasta add -i mywiki -w imported -u example.com/imported -d ./backup.sql.gz -l ./MySettings.php
 ```
 
 **URL Format:**
@@ -176,6 +153,86 @@ sudo canasta add -i mywiki -w imported -u example.com/imported -a admin -d ./bac
 - Examples: `localhost/wiki2`, `example.com/docs`, `wiki.example.com`
 - Multiple wikis can share the same domain with different paths
 - Subdomains are treated as separate domains
+
+---
+
+## canasta dump
+
+Dump the database of a wiki in a Canasta instance.
+
+**Usage:**
+```
+canasta dump [flags]
+```
+
+**Required Flags:**
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--wiki` | `-w` | ID of the wiki to dump |
+
+**Optional Flags:**
+
+| Flag | Short | Default | Description |
+|------|-------|---------|-------------|
+| `--id` | `-i` | | Canasta instance ID |
+| `--file` | `-f` | `{wikiID}.sql` | Output file path |
+
+If the output filename ends in `.gz`, the dump is automatically gzip-compressed.
+
+**Examples:**
+
+Dump a wiki database:
+```bash
+sudo canasta dump -i myfarm -w mainwiki
+```
+
+Dump to a specific file:
+```bash
+sudo canasta dump -i myfarm -w mainwiki -f ./backup.sql
+```
+
+Dump with gzip compression:
+```bash
+sudo canasta dump -i myfarm -w mainwiki -f ./backup.sql.gz
+```
+
+---
+
+## canasta refresh
+
+Re-import a database into an existing wiki. This replaces the wiki's database with the contents of the provided dump file and restarts the containers.
+
+**Usage:**
+```
+canasta refresh [flags]
+```
+
+**Required Flags:**
+
+| Flag | Short | Description |
+|------|-------|-------------|
+| `--wiki` | `-w` | ID of the wiki to refresh |
+| `--database` | `-d` | Path to SQL dump file (.sql or .sql.gz) |
+
+**Optional Flags:**
+
+| Flag | Short | Default | Description |
+|------|-------|---------|-------------|
+| `--id` | `-i` | | Canasta instance ID |
+| `--wiki-settings` | `-l` | | Path to Settings.php to replace the existing one |
+
+**Examples:**
+
+Refresh a wiki with a new database dump:
+```bash
+sudo canasta refresh -i myfarm -w mainwiki -d ./backup.sql.gz
+```
+
+Refresh with a new database and Settings.php:
+```bash
+sudo canasta refresh -i myfarm -w mainwiki -d ./backup.sql.gz -l ./MySettings.php
+```
 
 ---
 
