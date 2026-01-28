@@ -31,21 +31,15 @@ Subdomain-based routing requires that the subdomains are configured correctly in
 
 ```
 Flags:
-  -d, --docker-path string   Path to docker compose binary
   -h, --help                 Help for canasta
   -v, --verbose              Verbose output
 ```
 
-Most commands also accept these flags to identify a Canasta installation:
-
-- `-i, --id`: Canasta instance ID (the name you gave when creating the installation)
-- `-p, --path`: Path to the Canasta installation directory
-
-If you run commands from within the Canasta installation directory, the `-i` flag is not required.
+Most commands accept the `-i, --id` flag to identify a Canasta installation by the name you gave when creating it. If you run commands from within the Canasta installation directory, the `-i` flag is not required.
 
 ## Getting help
 
-Use `canasta help` or `canasta --help` to see the list of available commands. For help with a specific command, use:
+Running `canasta` with no arguments displays the full command listing and the location of the config file. For help with a specific command, use:
 
 ```bash
 canasta [command] --help

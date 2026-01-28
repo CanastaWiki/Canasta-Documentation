@@ -30,7 +30,6 @@ Manage Canasta extensions for a wiki installation.
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
 | `--wiki` | `-w` | | ID of specific wiki in the farm (optional) |
 | `--verbose` | `-v` | `false` | Verbose output |
 
@@ -104,7 +103,6 @@ Manage Canasta skins for a wiki installation.
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
 | `--wiki` | `-w` | | ID of specific wiki in the farm (optional) |
 | `--verbose` | `-v` | `false` | Verbose output |
 
@@ -167,7 +165,6 @@ Run maintenance scripts for a Canasta installation.
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
 
 ### canasta maintenance update
 
@@ -216,11 +213,8 @@ canasta start [flags]
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
-| `--orchestrator` | `-o` | `compose` | Orchestrator to use |
 | `--dev` | `-D` | | Start in development mode with Xdebug (see [Development mode](devmode.md)) |
 | `--no-dev` | | | Start without development mode (disable dev mode) |
-| `--dev-tag` | | `latest` | Canasta image tag to use for dev mode |
 
 **Examples:**
 
@@ -249,8 +243,6 @@ canasta stop [flags]
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
-| `--orchestrator` | `-o` | `compose` | Orchestrator to use |
 
 **Example:**
 
@@ -274,12 +266,9 @@ canasta restart [flags]
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--id` | `-i` | | Canasta instance ID |
-| `--path` | `-p` | Current directory | Path to the Canasta installation |
-| `--orchestrator` | `-o` | `compose` | Orchestrator to use |
 | `--verbose` | `-v` | `false` | Verbose output |
 | `--dev` | `-D` | | Restart in development mode with Xdebug (see [Development mode](devmode.md)) |
 | `--no-dev` | | | Restart without development mode (disable dev mode) |
-| `--dev-tag` | | `latest` | Canasta image tag to use for dev mode |
 
 **Examples:**
 
