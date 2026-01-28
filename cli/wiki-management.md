@@ -6,8 +6,8 @@ This page documents the Canasta CLI commands for creating and managing wikis and
 
 - [canasta create](#canasta-create) - Create a new Canasta installation
 - [canasta add](#canasta-add) - Add a wiki to a wiki farm
-- [canasta dump](#canasta-dump) - Dump a wiki database
-- [canasta refresh](#canasta-refresh) - Re-import a database into an existing wiki
+- [canasta export](#canasta-export) - Export a wiki database
+- [canasta import](#canasta-import) - Import a database into an existing wiki
 - [canasta remove](#canasta-remove) - Remove a wiki from a wiki farm
 - [canasta delete](#canasta-delete) - Delete an entire Canasta installation
 - [canasta list](#canasta-list) - List all Canasta installations
@@ -156,20 +156,20 @@ sudo canasta add -i mywiki -w imported -u example.com/imported -d ./backup.sql.g
 
 ---
 
-## canasta dump
+## canasta export
 
-Dump the database of a wiki in a Canasta instance.
+Export the database of a wiki in a Canasta instance.
 
 **Usage:**
 ```
-canasta dump [flags]
+canasta export [flags]
 ```
 
 **Required Flags:**
 
 | Flag | Short | Description |
 |------|-------|-------------|
-| `--wiki` | `-w` | ID of the wiki to dump |
+| `--wiki` | `-w` | ID of the wiki to export |
 
 **Optional Flags:**
 
@@ -178,41 +178,43 @@ canasta dump [flags]
 | `--id` | `-i` | | Canasta instance ID |
 | `--file` | `-f` | `{wikiID}.sql` | Output file path |
 
-If the output filename ends in `.gz`, the dump is automatically gzip-compressed.
+If the output filename ends in `.gz`, the export is automatically gzip-compressed.
 
 **Examples:**
 
-Dump a wiki database:
+Export a wiki database:
 ```bash
-sudo canasta dump -i myfarm -w mainwiki
+sudo canasta export -i myfarm -w mainwiki
 ```
 
-Dump to a specific file:
+Export to a specific file:
 ```bash
-sudo canasta dump -i myfarm -w mainwiki -f ./backup.sql
+sudo canasta export -i myfarm -w mainwiki -f ./backup.sql
 ```
 
-Dump with gzip compression:
+Export with gzip compression:
 ```bash
-sudo canasta dump -i myfarm -w mainwiki -f ./backup.sql.gz
+sudo canasta export -i myfarm -w mainwiki -f ./backup.sql.gz
 ```
 
 ---
 
-## canasta refresh
+## canasta import
 
-Re-import a database into an existing wiki. This replaces the wiki's database with the contents of the provided dump file and restarts the containers.
+Import a database dump into an existing wiki, replacing its current database. The containers are restarted after import.
+
+**Note:** To create a new wiki from a database dump, use the `--database` flag with [canasta create](#canasta-create) or [canasta add](#canasta-add) instead.
 
 **Usage:**
 ```
-canasta refresh [flags]
+canasta import [flags]
 ```
 
 **Required Flags:**
 
 | Flag | Short | Description |
 |------|-------|-------------|
-| `--wiki` | `-w` | ID of the wiki to refresh |
+| `--wiki` | `-w` | ID of the wiki to import into |
 | `--database` | `-d` | Path to SQL dump file (.sql or .sql.gz) |
 
 **Optional Flags:**
@@ -224,14 +226,14 @@ canasta refresh [flags]
 
 **Examples:**
 
-Refresh a wiki with a new database dump:
+Import a database into an existing wiki:
 ```bash
-sudo canasta refresh -i myfarm -w mainwiki -d ./backup.sql.gz
+sudo canasta import -i myfarm -w mainwiki -d ./backup.sql.gz
 ```
 
-Refresh with a new database and Settings.php:
+Import with a replacement Settings.php:
 ```bash
-sudo canasta refresh -i myfarm -w mainwiki -d ./backup.sql.gz -l ./MySettings.php
+sudo canasta import -i myfarm -w mainwiki -d ./backup.sql.gz -l ./MySettings.php
 ```
 
 ---
