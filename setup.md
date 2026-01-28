@@ -48,18 +48,19 @@ sudo canasta create -i canastaId -n example.com -w "Canasta Wiki" -a admin -o co
 * Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
 
 ### Import an existing wiki
-* Place all the files mentioned below in the same directory for ease of use.
-* Create a .env file and customize as needed (more details on how to configure it at [Configuration](#Configuration), and for an example see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example)).
-* Drop your database dump (in either a .sql or .sql.gz file).
-* Place your existing LocalSettings.php and change your database configuration to be the following:
-  * Database host: db
-  * Database user: root
-  * Database password: mediawiki (by default; see [Configuration](#Configuration))
+* Prepare your database dump (in either a .sql or .sql.gz file).
+* Optionally prepare a custom Settings.php for the wiki.
+* Optionally create a .env file with password overrides (more details on how to configure it at [Configuration](#Configuration), and for an example see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example)).
 * Then run the following command:
 ```
-sudo canasta import -i importWikiId -d ./backup.sql.gz -e ./.env -l ./LocalSettings.php  
+sudo canasta create -i myWikiId -w main -n localhost -d ./backup.sql.gz
 ```
-* Visit your wiki at its URL (or http://localhost if installed locally or if you did not specify any domain).
+* To also provide a custom Settings.php and .env file:
+```
+sudo canasta create -i myWikiId -w main -n localhost -d ./backup.sql.gz -l ./Settings.php -e ./.env
+```
+* Visit your wiki at its URL (or https://localhost if installed locally or if you did not specify any domain).
+* To import a database into an additional wiki in an existing installation, use [canasta add](cli/wiki-management.md#canasta-add) with the `--database` flag.
 
 ### Enable/disable an extension
 * To enable a Canasta extension, run the following command:
