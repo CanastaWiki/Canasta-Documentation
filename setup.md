@@ -29,50 +29,7 @@ The easiest, and recommended, approach to set up Canasta installations is to use
 
 Note: The Canasta CLI currently only supports installing the latest version of Canasta. Currently, the Canasta CLI only supports installing Canasta 3.0 (MediaWiki 1.43). If you want to install Canasta 1.2 (which uses MediaWiki 1.35), or Canasta 2.0 (which uses MediaWiki 1.39), follow the [manual installation instructions](#manual-installation).
 
-The following covers the installation, and a few of the commands, of the Canasta CLI.
-For complete documentation on the CLI, visit the [CLI page](cli.md).
-
-### Installation
-* Run the following line to install the Canasta CLI (Be sure you have write permissions in the current working directory):
-
-```
-curl -fsL https://raw.githubusercontent.com/CanastaWiki/Canasta-CLI/main/install.sh | bash
-``` 
-* If prompted, enter your local system password (because the installer and CLI require `sudo` usage).
-
-### Create a new wiki
-* Run the following command to create a new Canasta installation with default configurations.
-```
-sudo canasta create -i canastaId -n example.com -w "Canasta Wiki" -a admin -o compose
-```
-* Visit your wiki at its URL, "https://example.com" as in the above example (or http://localhost if installed locally or if you did not specify any domain)
-
-### Import an existing wiki
-* Prepare your database dump (in either a .sql or .sql.gz file).
-* Optionally prepare a custom Settings.php for the wiki.
-* Optionally create a .env file with password overrides (more details on how to configure it at [Configuration](#Configuration), and for an example see [.env.example](https://github.com/CanastaWiki/Canasta-DockerCompose/blob/main/.env.example)).
-* Then run the following command:
-```
-sudo canasta create -i myWikiId -w main -n localhost -d ./backup.sql.gz
-```
-* To also provide a custom Settings.php and .env file:
-```
-sudo canasta create -i myWikiId -w main -n localhost -d ./backup.sql.gz -l ./Settings.php -e ./.env
-```
-* Visit your wiki at its URL (or https://localhost if installed locally or if you did not specify any domain).
-* To import a database into an additional wiki in an existing installation, use [canasta add](cli/wiki-management.md#canasta-add) with the `--database` flag.
-
-### Enable/disable an extension
-* To enable a Canasta extension, run the following command:
-```
-sudo canasta extension enable Bootstrap -i canastaId
-```
-
-### Enable/disable a skin
-* To enable a Canasta skin, run the following command:
-```
-sudo canasta skin enable Vector -i canastaId
-```
+For complete CLI documentation — including installation, creating wikis, importing existing wikis, and managing extensions and skins — see the [Canasta CLI documentation](https://canastawiki.github.io/Canasta-CLI/).
 
 ## Manual installation
 
@@ -136,59 +93,9 @@ If you are using Docker Compose, you can also make configurations to the overall
 Additionally, MediaWiki (and its extensions and skins) can be configured in all sorts of ways.
 MediaWiki alone has over 1,000 configuration settings; see [here](https://www.mediawiki.org/wiki/Special:MyLanguage/Category:MediaWiki_configuration_settings) for one listing of them.
 
-## Enabling/disabling extensions
-In `LocalSettings.php` you can add an extension by picking its name from the [list of bundled extensions](https://canasta.wiki/contents/#extensions-included-in-canasta) and adding a `wfLoadExtension` call for it, e.g.:
+## Enabling/disabling extensions and skins
 
-```php
-wfLoadExtension( 'Cite' );
-```
-
-You can also add such a call to any file in the `config/settings/` directory, to achieve the same result.
-
-## Enabling/disabling skins
-In `LocalSettings.php` you can add a skin by picking its name from the [list of bundled skins](https://canasta.wiki/contents/#skins-included-in-canasta) and adding a `wfLoadSkin` call for it, e.g.:
-
-```php
-wfLoadSkin( 'Timeless' );
-```
-
-You can also add such a call to any file in the `config/settings/` directory, to achieve the same result.
-
-## Installing additional extensions
-To install a non-Canasta extension, simply place it in the `./extensions`
-directory and add a `wfLoadExtension` call to `./config/LocalSettings.php`, e.g.:
-
-```php
-wfLoadExtension( 'MyCustomExtension' );
-```
-
-### Composer packages
-If an additional (non-Canasta) extension requires some Composer packages to be installed, just
-add a line for the extension's `composer.json` file to the
-`config/composer.local.json` file, e.g.:
-
-```json
-{
-	"extra": {
-		"merge-plugin": {
-			"include": [
-				"user-extensions/SomeExtension/composer.json"
-			]
-		}
-	}
-}
-```
-
-Note: the `require` section of `config/composer.local.json` is ignored; thus
-you won't be able to install new extensions via Composer, only dependencies.
-
-## Installing additional skins
-In order to install a non-Canasta skin, simply place it in the `./skins`
-directory and add a `wfLoadSkin` call to `./config/LocalSettings.php`, e.g.:
-
-```php
-wfLoadSkin( 'MyCustomSkin' );
-```
+See [Extensions and skins](https://canastawiki.github.io/Canasta-CLI/guide/extensions-and-skins/) in the Canasta CLI documentation.
 
 ## Using hardened image (Iron Bank Canasta)
 The United States Department of Defense (DoD) publicly releases a hardened version of Canasta, which means it's been specially patched and vetted to be secure enough for internal use in the U.S. military. While it might be a version or two behind, it has been cleared of security vulnerabilities by the DoD.
