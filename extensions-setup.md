@@ -1,88 +1,15 @@
-# Extensions setup
-Canasta bundles over 100 extensions and skins to make life easy for you. However, Canasta remains neutral and doesn't require you/"voluntell" you to install any certain skin or extension. Therefore, you still need to add some lines to `LocalSettings.php` to set up the wiki with the extensions you want. (In the future, a command-line interface will be made available to facilitate this.)
+## Enabling extensions and skins
+A Canasta installation contains 163 extensions and 10 skins, all chosen for the functionality and display they add to MediaWiki; see [Contents](https://canasta.wiki/contents/#extensions-included-in-canasta) for the complete listing. By default, only one of these (the "Vector" skin) is enabled on Canasta; any of the rest must be manually enabled. For any extension or skin, there are two main ways to enable it:
 
-## 1. A very simple starting point
-There are a few major "must have" extensions that add significant functionality to MediaWiki and that virtually all wikis should be using. Along with a skin of choice, this mini-guide walks you through how to set up the following:
+- Add a line to enable it to any file in the config/settings/global/ or config/settings/wikis/_YourWikiID_/ directory, depending on whether you want all the wikis in this installation to contain this extension/skin, or just one. (For Canasta installations containing just one wiki, it doesn't matter which you do.) The line should be a simple call to either `wfLoadExtension()` or `wfLoadSkin()`; for example:
 
-- Vector
-- VisualEditor
-- CirrusSearch (and Elastica and AdvancedSearch)
+  `wfLoadExtension( 'VisualEditor' );`
 
-### Quick setup of must have extensions
+- Call the command [`canasta extension enable`](https://canastawiki.github.io/Canasta-CLI/cli/canasta_extension_enable/) or [`canasta skin enable`](https://canastawiki.github.io/Canasta-CLI/cli/canasta_skin_enable/), which in turn adds a new short file to either the config/settings/global/ or the config/settings/wikis directory, depending on how it is called. These can then be undone by removing the short file manually, or by calling one of the corresponding commands [`canasta extension disable`](https://canastawiki.github.io/Canasta-CLI/cli/canasta_extension_disable/) and [`canasta skin disable`](https://canastawiki.github.io/Canasta-CLI/cli/canasta_skin_disable/).
 
-1. Add the following into `LocalSettings.php`:
+In either case, there is the chance that an extension or skin you enable will require a database update to work, because it defines its own DB tables that must be created. The easiest way to do such a database update is to simply call  [`canasta restart`](https://canastawiki.github.io/Canasta-CLI/cli/canasta_restart/) after you have enabled one or more additional extensions or skins.
 
-```php
-$wgDefaultSkin = 'vector'; // wfLoadSkin( 'Vector' ); is present in config/settings/Vector.php
+## Installing additional extensions and skins
+There are of course hundreds of other extensions and skins that you might want to add to any specific Canasta installation. You may even have some custom=developed extensions or skins that you want to use. Or there might even be extensions or skins already included in Canasta, but for which you want to use a different version (older or newer) than what Canasta holds. For all three of these cases, the process is the same: add the directory containing the code for that extension or skin to your Canasta installation's extensions/ or skins/ directory "enable" it using one of the two options liste above, and then call `canasta restart`.
 
-wfLoadExtension( 'VisualEditor' );
-
-wfLoadExtension( 'Elastica' );
-wfLoadExtension( 'CirrusSearch' );
-wfLoadExtension( 'AdvancedSearch' );
-
-$wgSearchType = 'CirrusSearch';
-$wgCirrusSearchServers = [ 'elasticsearch' ];
-```
-
-2. Run the following from your Canasta stack directory (the one you downloaded from `Canasta-DockerCompose`):
-
-```bash
-sudo docker compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/UpdateSearchIndexConfig.php \
-&& sudo docker compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipLinks --indexOnSkip \
-&& sudo docker compose exec web php /var/www/mediawiki/w/canasta-extensions/CirrusSearch/maintenance/ForceSearchIndex.php --skipParse
-```
-
-This code initializes the Elasticsearch container to run CirrusSearch.
-
-3. Done! You can now use VisualEditor and CirrusSearch.
-
-## 2. Adding very popular extensions
-There are a larger number of extensions, most of which are already bundled with vanilla MediaWiki, that almost all wikis will want to install.
-
-1. Copy and paste this into your `LocalSettings.php` file to enable them:
-
-```php
-wfLoadExtension( 'Cite' );
-wfLoadExtension( 'CiteThisPage' );
-wfLoadExtension( 'CodeEditor' );
-wfLoadExtension( 'ConfirmEdit' );
-wfLoadExtension( 'Gadgets' );
-wfLoadExtension( 'ImageMap' );
-wfLoadExtension( 'InputBox' );
-wfLoadExtension( 'Interwiki' );
-wfLoadExtension( 'MobileFrontend' );
-wfLoadExtension( 'MultimediaViewer' );
-wfLoadExtension( 'Nuke' );
-wfLoadExtension( 'OATHAuth' );
-wfLoadExtension( 'PageImages' );
-wfLoadExtension( 'ParserFunctions' );
-wfLoadExtension( 'PdfHandler' );
-wfLoadExtension( 'Poem' );
-wfLoadExtension( 'Renameuser' );
-wfLoadExtension( 'ReplaceText' );
-wfLoadExtension( 'Scribunto' );
-wfLoadExtension( 'SecureLinkFixer' );
-wfLoadExtension( 'SpamBlacklist' );
-wfLoadExtension( 'TemplateData' );
-wfLoadExtension( 'TextExtracts' );
-wfLoadExtension( 'TitleBlacklist' );
-wfLoadExtension( 'WikiEditor' );
-
-wfLoadSkin( 'MinervaNeue' );
-
-$wgMFDefaultSkinClass = 'SkinMinerva';
-```
-
-Note that this block of `wfLoadExtension`s doesn't include VisualEditor or CirrusSearch because they were already installed in the preceding section.
-
-2. Restart Canasta. This is necessary for login to work (since OATHAuth creates new database tables). Use this one-liner:
-
-```bash
-sudo docker compose down && sudo docker compose up -d
-```
-
-3. Done! Now, you can immediately use all of these extensions.
-
-## 3. More extensions
-You can always install more extensions using the list provided at <https://canasta.wiki/contents/#extensions-included-in-canasta>.
+The `canasta restart` command will accomplish up to three things: let Canasta know about this new code directory run a Composer call to download any library dependencies that this extenions or skin may have (as specified in its composer.json file), and update the database, in case the extension or skin defines its own database tables.
