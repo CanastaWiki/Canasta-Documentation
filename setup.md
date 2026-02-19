@@ -27,9 +27,9 @@ You should have both Docker Engine and Docker Compose installed. This is very fa
 ## Recommended: CLI installation
 The easiest, and recommended, approach to set up Canasta installations is to use the [Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (command-line interface). It lets you install and use Canasta without having to know anything about Docker or Docker Compose. Then, once it is installed, the CLI can be used to easily create, import, start, stop, manage extension/skins, and back up Canasta installations.
 
-Note: The Canasta CLI currently only supports installing the latest version of Canasta. Currently, the Canasta CLI only supports installing Canasta 3.0 (MediaWiki 1.43). If you want to install Canasta 1.2 (which uses MediaWiki 1.35), or Canasta 2.0 (which uses MediaWiki 1.39), follow the [manual installation instructions](#manual-installation).
+For complete CLI documentation — including [installing the CLI](https://canastawiki.github.io/Canasta-CLI/installation/), creating wikis, importing existing wikis, and managing extensions and skins — see the [Canasta CLI documentation](https://canastawiki.github.io/Canasta-CLI/).
 
-For complete CLI documentation — including installation, creating wikis, importing existing wikis, and managing extensions and skins — see the [Canasta CLI documentation](https://canastawiki.github.io/Canasta-CLI/).
+_Note: The Canasta CLI currently only supports installing the latest version of Canasta. Currently, the Canasta CLI only supports installing Canasta 3.0 (MediaWiki 1.43). If you want to install Canasta 1.2 (which uses MediaWiki 1.35), or Canasta 2.0 (which uses MediaWiki 1.39), follow the [manual installation instructions](#manual-installation)._
 
 ## Manual installation
 
