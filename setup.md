@@ -27,7 +27,7 @@ You should have both Docker Engine and Docker Compose installed. This is very fa
 ## Recommended: CLI installation
 The easiest, and recommended, approach to set up Canasta installations is to use the [Canasta CLI](https://github.com/CanastaWiki/Canasta-CLI) (command-line interface). It lets you install and use Canasta without having to know anything about Docker or Docker Compose. Then, once it is installed, the CLI can be used to easily create, import, start, stop, manage extension/skins, and back up Canasta installations.
 
-For complete CLI documentation — including [installing the CLI](https://canastawiki.github.io/Canasta-CLI/installation/), creating wikis, importing existing wikis, and managing extensions and skins — see the [Canasta CLI documentation](https://canastawiki.github.io/Canasta-CLI/).
+For complete CLI documentation — including [installing the CLI](https://docs.canasta.wiki/installation/), creating wikis, importing existing wikis, and managing extensions and skins — see the [Canasta technical documentation](https://docs.canasta.wiki/).
 
 _Note: The Canasta CLI currently only supports installing the latest version of Canasta. Currently, the Canasta CLI only supports installing Canasta 3.0 (MediaWiki 1.43). If you want to install Canasta 1.2 (which uses MediaWiki 1.35), or Canasta 2.0 (which uses MediaWiki 1.39), follow the [manual installation instructions](#manual-installation)._
 
@@ -95,7 +95,7 @@ MediaWiki alone has over 1,000 configuration settings; see [here](https://www.me
 
 ## Enabling/disabling extensions and skins
 
-See [Extensions and skins](https://canastawiki.github.io/Canasta-CLI/guide/extensions-and-skins/) in the Canasta CLI documentation.
+See [Extensions and skins](https://docs.canasta.wiki/guide/extensions-and-skins/) in the Canasta technical documentation.
 
 ## Using hardened image (Iron Bank Canasta)
 The United States Department of Defense (DoD) publicly releases a hardened version of Canasta, which means it's been specially patched and vetted to be secure enough for internal use in the U.S. military. While it might be a version or two behind, it has been cleared of security vulnerabilities by the DoD.
