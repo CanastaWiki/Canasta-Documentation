@@ -2,4 +2,4 @@
 
 ## Running maintenance scripts
 
-See [Maintenance scripts](https://canastawiki.github.io/Canasta-CLI/guide/general-concepts/#maintenance-scripts) in the Canasta CLI documentation.
+See [Maintenance scripts](https://docs.canasta.wiki/guide/general-concepts/#maintenance-scripts) in the Canasta technical documentation.
