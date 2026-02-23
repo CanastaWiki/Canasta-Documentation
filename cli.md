@@ -4,6 +4,6 @@ The Canasta command line interface (CLI) is a tool written in Go for managing Ca
 
 ## Documentation
 
-Full CLI documentation — including installation, command reference, wiki farm guides, development mode, backup/restore, best practices, and troubleshooting — is maintained in the Canasta CLI repository:
+Full CLI documentation — including installation, command reference, wiki farm guides, development mode, backup/restore, best practices, and troubleshooting — can be found here:
 
-**[https://canastawiki.github.io/Canasta-CLI/](https://canastawiki.github.io/Canasta-CLI/)**
+**[https://docs.canasta.wiki](https://docs.canasta.wiki/)**
