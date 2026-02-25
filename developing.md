@@ -45,5 +45,3 @@ Hopefully you will make any bug fixes, or useful feature additions, directly to 
 - https://github.com/CanastaWiki/Canasta
 - https://github.com/CanastaWiki/CanastaBase
 - https://github.com/CanastaWiki/Canasta-CLI
-- https://github.com/CanastaWiki/Canasta-DockerCompose
-- https://github.com/CanastaWiki/Canasta-Kubernetes
